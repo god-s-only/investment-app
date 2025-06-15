@@ -1,0 +1,232 @@
+extends layout
+
+block content
+  //- Hero Section
+  .hero-section
+    .navbar
+      .logo EquiTrust
+      ul.nav-links
+        li: a(href='/') Home
+        li: a(href='/investment-plans') Investment plans
+        li: a(href='/about') About
+        li: a(href='/contact') Contact
+        li: a(href='/blog') Blog
+      .nav-actions
+        a.button(href='/dashboard') Dashboard
+        button.language English
+      //- Hamburger for mobile
+      .hamburger(onclick='toggleMobileNav()')
+        span
+        span
+        span
+    //- Mobile nav dropdown
+    .mobile-nav#mobileNav
+      ul
+        li: a(href='/') Home
+        li: a(href='/investment-plans') Investment plans
+        li: a(href='/about') About
+        li: a(href='/contact') Contact
+        li: a(href='/blog') Blog
+      .nav-actions
+        a.button(href='/dashboard') Dashboard
+        button.language English
+    .hero-content
+      .hero-text
+        h1 Got to the next level investing
+        p Experience expert mining solutions for financial growth
+        .hero-buttons
+          a.button.orange(href='/signup') Get started
+          a.button(href='/about') Know more
+        .hero-stats
+          .stat
+            span.stat-value 50K
+            span.stat-label Total Investors
+          .stat
+            span.stat-value 500M
+            span.stat-label Total Deposit
+          .stat
+            span.stat-value 155M
+            span.stat-label Total Withdraw
+      .hero-bg
+
+    .ticker-bar
+      .crypto-ticker#crypto-ticker
+
+  //- About Section
+  .about-section
+    .about-image
+      img(src='/images/bitcoin-about.png', alt='Bitcoin')
+    .about-content
+      h2 About us
+      p EquiTrust is dedicated to transforming the landscape of cryptocurrency investment.
+      p Founded by a team of seasoned experts in digital assets, our mission is to democratize access to the lucrative world of crypto mining. We strive to make cryptocurrency investment accessible and profitable for everyone.
+      p At EquiTrust, we prioritize transparency, security, and excellence. Utilizing cutting-edge technology and industry-leading strategies, we aim to deliver consistent and competitive returns for our investors. Our platform provides a trusted space where individuals can confidently grow their wealth through strategic crypto investments.
+      p Our team of dedicated professionals brings years of experience and a deep understanding of the ever-evolving crypto landscape. By staying ahead of market trends and leveraging our expertise, we empower investors to navigate the complexities of cryptocurrency with ease and confidence.
+      p We believe in the transformative power of cryptocurrency to shape lives and futures. Whether you're new to digital assets or a seasoned investor, we invite you to join us on this exciting journey towards financial freedom and success. Unlock the potential of cryptocurrency investment with EquiTrust today.
+      a.button.orange(href='/about') Learn more
+
+  //- Investment Plans Section
+  .plans-section
+    h2 Investment plan
+    .plans
+      .plan.bronze
+        h3 Bronze
+        .plan-rate 20.00 %
+        .plan-period Every week
+        .plan-min Min 2,000.00 USD
+        .plan-max Max 10,000.00 USD
+        .plan-once For 1 Times
+        .plan-capital Capital back Yes
+        .plan-affiliate Affiliate bonus
+        .affiliate-levels
+          span 8% level 1
+          span 12% level 2
+      .plan.silver
+        h3 Silver
+        .plan-rate 80.00 %
+        .plan-period Every Month
+        .plan-min Min 10,000.00 USD
+        .plan-max Max 50,000.00 USD
+        .plan-once For 1 Times
+        .plan-capital Capital back Yes
+        .plan-affiliate Affiliate bonus
+        .affiliate-levels
+          span 2% level 1
+          span 5% level 2
+          span 8% level 3
+          span 10% level 4
+          span 15% level 5
+      .plan.gold
+        h3 Gold Pack
+        .plan-rate 150.00 %
+        .plan-period Every Month
+        .plan-min Min 20,000.00 USD
+        .plan-max Max 10,000,000.00 USD
+        .plan-once For 1 Times
+        .plan-capital Capital back Yes
+        .plan-affiliate Affiliate bonus
+        .affiliate-levels
+          span 10% level 1
+          span 20% level 2
+          span 30% level 3
+          span 40% level 4
+          span 50% level 5
+
+  //- Why Choose Us Section
+  .why-section
+    h2 Why choose us
+    .why-cards
+      .why-card
+        .icon.proven
+        h3 Proven track record
+        p Rely on our history of delivering consistent and competitive returns for our investors
+      .why-card
+        .icon.innovative
+        h3 Innovative strategies
+        p Benefit from our cutting-edge technology and industry-leading approaches to crypto investment
+      .why-card
+        .icon.transparent
+        h3 Transparent operations
+        p Gain full visibility into our processes and results, ensuring trust and confidence in your investment
+      .why-card
+        .icon.tailored
+        h3 Tailored investment options
+        p Choose from a range of packages customized to fit your financial goals and preferences
+      .why-card
+        .icon.customer
+        h3 Exceptional customer care
+        p Experience our dedicated support team's commitment to assisting you every step of the way
+      .why-card
+        .icon.secure
+        h3 Secure investment
+        p Trust in our robust security measures to safeguard your funds and personal information
+
+  //- How It Works Section
+  .how-section
+    h2 How it work
+    .how-steps
+      .how-step
+        .step-number 1
+        .step-icon
+        h3 Create account
+        p Sign up quickly and easily to start your investment journey with EquiTrust. Just provide your basic information and you're ready to go.
+      .how-step
+        .step-number 2
+        .step-icon
+        h3 Choose plan
+        p Select the investment plan that best suits your financial goals. Whether you're looking for a small start or a significant investment, we have options for everyone.
+      .how-step
+        .step-number 3
+        .step-icon
+        h3 Get profit
+        p Sit back and watch your investment grow. Our expert team manages the mining operations, delivering consistent returns directly to your account.
+
+  //- Testimonials Section
+  .testimonials-section
+    h2 What our clients say
+    .testimonials
+      .testimonial
+        p "EquiTrust has simplified investing for me. The platform is easy to use, and I love how transparent everything is. I've seen steady returns, and I feel more in control of my finances than ever before."
+        .testimonial-user
+          img(src='/images/user1.png', alt='Sarah A.')
+          .user-info
+            span.name Sarah A.
+            span.role Retail Investor
+      .testimonial
+        p "I recommend EquiTrust to my clients because of its user-friendly interface and strong security features. It's the perfect balance of innovation and reliability."
+        .testimonial-user
+          img(src='/images/user2.png', alt='Daniel E.')
+          .user-info
+            span.name Daniel E.
+            span.role Financial Consultant
+      .testimonial
+        p "The team behind EquiTrust really understands what modern investors need. The platform is sleek, smart, and performance-driven. I've integrated it into my financial toolkit."
+        .testimonial-user
+          img(src='/images/user3.png', alt='Jamal Akter')
+          .user-info
+            span.name Jamal Akter
+            span.role Freelancer
+      .testimonial
+        p "Their intuitive dashboard and real-time performance tracking give me the confidence I need to manage my portfolio efficiently."
+        .testimonial-user
+          img(src='/images/user4.png', alt='James T.')
+          .user-info
+            span.name James T.
+            span.role Crypto Enthusiast
+
+  //- Newsletter Section
+  .newsletter-section
+    h2 Our newsletter
+    p Join our newsletter to receive the latest news, investment tips, and exclusive offers directly to your inbox
+    form.newsletter-form(action='/subscribe', method='POST')
+      input(type='email', name='email', placeholder='Enter email here', required)
+      button(type='submit') Subscribe
+
+  //- Footer Section
+  footer.footer-section
+    .footer-content
+      .footer-contact
+        span
+          | 4E7
+          a(href='mailto:Support@equitrust.com') Support@equitrust.com
+        span
+          | 4DE
+          a(href='tel:+16462321785') +16462321785
+      .footer-logo EquiTrust
+      .footer-social
+        a(href='#') i.fa.fa-facebook
+        a(href='#') i.fa.fa-linkedin
+        a(href='#') i.fa.fa-twitter
+        a(href='#') i.fa.fa-pinterest
+    .footer-links
+      a(href='/') Home
+      a(href='/about') About
+      a(href='/contact') Contact
+    .footer-copyright
+      | Copyright 2025 equitrust. all rights reserved.
+
+  //- Link to home.css
+  block append head
+    link(rel='stylesheet', href='/stylesheets/home.css')
+  //- Hamburger menu script
+  block append scripts
