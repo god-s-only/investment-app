@@ -54,8 +54,16 @@ block content
 
   //- About Section
   .about-section
-    .about-image
-      img(src='/images/bitcoin-about.png', alt='Bitcoin')
+    .about-image.animated-bitcoin
+      // SVG for two thin animated lines (circles)
+      svg(class='orbit orbit1', width='180', height='180')
+        circle(cx='90', cy='90', r='85', fill='none', stroke='#ff9900', 'stroke-width'='2', 'stroke-dasharray'='6,8')
+      svg(class='orbit orbit2', width='140', height='140')
+        circle(cx='70', cy='70', r='65', fill='none', stroke='#fff', 'stroke-width'='1', 'stroke-dasharray'='4,10')
+      // Balls
+      .orbit-ball.ball1
+      .orbit-ball.ball2
+      img(src='https://www.minegainx.com/asset/theme1/images/about/6257a3187a4ca1649910552.png', alt='Bitcoin')
     .about-content
       h2 About us
       p EquiTrust is dedicated to transforming the landscape of cryptocurrency investment.
@@ -230,3 +238,7 @@ block content
     link(rel='stylesheet', href='/stylesheets/home.css')
   //- Hamburger menu script
   block append scripts
+
+  //- Loading screen overlay
+  #loading-overlay
+    .loader

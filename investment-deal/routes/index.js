@@ -18,4 +18,12 @@ router.get('/api/crypto', async (req, res) => {
   }
 });
 
+router.get('/signup', function(req, res, next) {
+  res.render('signup', { title: 'Sign Up | EquiTrust' });
+});
+
+router.get('/dashboard', function(req, res, next) {
+  res.render('dashboard', { title: 'Dashboard | EquiTrust' });
+});
+
 module.exports = router;

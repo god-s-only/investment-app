@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  .signup-container
+    .signup-form-section
+      .signup-header
+        .logo EquiTrust
+        .login-link
+          span Already registered?
+          a.button.orange(href='/login') Login
+      h2 Create an account
+      form#signup-form
+        .form-row
+          input(type='text', name='firstName', placeholder='First name', required)
+          input(type='text', name='lastName', placeholder='Last name', required)
+        .form-row
+          input(type='text', name='username', placeholder='User name', required)
+          input(type='text', name='phone', placeholder='Phone', required)
+        input(type='email', name='email', placeholder='Email', required)
+        .form-row
+          input(type='password', name='password', placeholder='Password', required)
+          input(type='password', name='confirmPassword', placeholder='Confirm password', required)
+        .form-row
+          label.checkbox
+            input(type='checkbox', name='privacy', required)
+            | I Agree To The Privacy Policy
+        button(type='submit', class='button orange') Register
+      .signup-footer
+        | Copyright 2025 equitrust. all rights reserved.
+    .signup-image-section
+      img(src='https://www.minegainx.com/asset/theme1/images/frontendlogin/frontend_login_image.png', alt='Bitcoin')
+
+block append head
+  link(rel='stylesheet', href='/stylesheets/signup.css')
+
+block append scripts
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js')
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js')
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js')
+  script(src='/javascripts/signup.js')
