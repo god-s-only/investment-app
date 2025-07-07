@@ -22,8 +22,15 @@ router.get('/signup', function(req, res, next) {
   res.render('signup', { title: 'Sign Up | EquiTrust' });
 });
 
-router.get('/dashboard', function(req, res, next) {
-  res.render('dashboard', { title: 'Dashboard | EquiTrust' });
+router.get('/signin', function(req, res, next) {
+  res.render('signin', { title: 'Sign In | EquiTrust' });
+});
+
+router.get('/dashboard', (req, res) => {
+  res.render('dashboard', { 
+    title: 'EquiTrust - Dashboard',
+    page: 'dashboard' 
+  });
 });
 
 module.exports = router;

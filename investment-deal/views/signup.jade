@@ -7,7 +7,7 @@ block content
         .logo EquiTrust
         .login-link
           span Already registered?
-          a.button.orange(href='/login') Login
+          a.button.orange(href='/signin') Login
       h2 Create an account
       form#signup-form
         .form-row
@@ -28,7 +28,17 @@ block content
       .signup-footer
         | Copyright 2025 equitrust. all rights reserved.
     .signup-image-section
-      img(src='https://www.minegainx.com/asset/theme1/images/frontendlogin/frontend_login_image.png', alt='Bitcoin')
+      img(src='https://img.icons8.com/fluency/480/000000/bitcoin.png', style='border-radius: 18px; box-shadow: 0 4px 24px rgba(0,0,0,0.18); max-width: 90%; max-height: 80vh; object-fit: cover;')
+
+  // Loading modal overlay
+  #loading-overlay.hidden
+    .loader
+
+  // Error modal overlay
+  #error-modal.hidden
+    .error-modal-content
+      span#error-modal-message
+      button#close-error-modal(type='button') Close
 
 block append head
   link(rel='stylesheet', href='/stylesheets/signup.css')

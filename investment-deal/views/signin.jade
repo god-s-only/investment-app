@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  .signin-container
+    .signin-form-section
+      .signin-header
+        .logo EquiTrust
+        .signup-link
+          span New here?
+          a.button.orange(href='/signup') Sign up
+      h2 Sign in to your account
+      form#signin-form
+        input(type='email', name='email', placeholder='Email', required)
+        span#email-error-message.error-message
+        input(type='password', name='password', placeholder='Password', required)
+        input(type='password', name='confirmPassword', placeholder='Confirm password', required)
+        button(type='submit', class='button orange') Sign In
+      .signin-footer
+        | Copyright 2025 equitrust. all rights reserved.
+    .signin-image-section
+      img(src='https://img.icons8.com/fluency/480/000000/bitcoin.png', style='border-radius: 18px; box-shadow: 0 4px 24px rgba(0,0,0,0.18); max-width: 90%; max-height: 80vh; object-fit: cover;')
+
+  // Loading modal overlay
+  #loading-overlay.hidden
+    .loader
+
+  // Error modal overlay
+  #error-modal.hidden
+    .error-modal-content
+      span#error-modal-message
+      button#close-error-modal(type='button') Close
+
+block append head
+  link(rel='stylesheet', href='/stylesheets/signin.css')
+
+block append scripts
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js')
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js')
+  script(src='/javascripts/signin.js') 

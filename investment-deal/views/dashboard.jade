@@ -1,0 +1,166 @@
+extends layout
+
+block content
+   #loadingModal.loading-modal
+      .loading-content
+        .loading-spinner
+        p Loading Dashboard...
+    
+    .container
+      // Navigation Sidebar
+      .sidebar
+        .logo
+          i.fas.fa-coins
+          span EquiTrust
+        
+        nav.nav-menu
+          .nav-item.active
+            i.fas.fa-tachometer-alt
+            span Dashboard
+          
+          .nav-item.dropdown
+            i.fas.fa-chart-line
+            span Investment
+            i.fas.fa-chevron-down.dropdown-icon
+          
+          .nav-item.dropdown
+            i.fas.fa-money-bill-wave
+            span Deposit
+            i.fas.fa-chevron-down.dropdown-icon
+          
+          .nav-item.dropdown
+            i.fas.fa-hand-holding-usd
+            span Withdraw
+            i.fas.fa-chevron-down.dropdown-icon
+          
+          .nav-item.dropdown
+            i.fas.fa-exchange-alt
+            span Transfer money
+            i.fas.fa-chevron-down.dropdown-icon
+          
+          .nav-item.sub-item
+            i.fas.fa-history
+            span Money transfer log
+          
+          .nav-item
+            i.fas.fa-percentage
+            span Interest log
+          
+          .nav-item
+            i.fas.fa-receipt
+            span Transaction log
+          
+          .nav-item
+            i.fas.fa-users
+            span Referral log
+          
+    
+          
+          .nav-item
+            i.fas.fa-headset
+            span Support
+          
+          .nav-item
+            i.fas.fa-sign-out-alt
+            span Logout
+      
+      // Main Content
+      .main-content
+        // Top Header
+        .top-header
+          .header-left
+            span English
+          .header-right
+            .user-info
+              i.fas.fa-user-circle
+              span#userName Loading...
+        
+        // Dashboard Content
+        .dashboard-content
+          // Top Cards Row
+          .cards-row
+            .card.account-balance
+              .card-header
+                span Account Balance
+                i.fas.fa-credit-card.card-icon
+              .card-value
+                span#accountBalance 0.00 USD
+            
+            .card.total-withdraw
+              .card-header
+                span Total withdraw
+                i.fas.fa-hand-holding-usd.card-icon
+              .card-value
+                span#totalWithdraw 0.00 USD
+            
+            .card.total-deposit
+              .card-header
+                span Total Deposit
+                i.fas.fa-money-bill-wave.card-icon
+              .card-value
+                span#totalDeposit 0.00 USD
+          
+          // Bottom Cards Row
+          .cards-row
+            .card.total-invest
+              .card-header
+                span Total Invest
+                i.fas.fa-chart-line.card-icon
+              .card-value
+                span#totalInvest 0.00 USD
+            
+            .card.current-invest
+              .card-header
+                span Current Invest
+                i.fas.fa-chart-pie.card-icon
+              .card-value
+                span#currentInvest 0 USD
+            
+            .card.current-plan
+              .card-header
+                span Current plan
+                i.fas.fa-clipboard-list.card-icon
+              .card-value
+                span#currentPlan N/A
+          
+          .cards-row
+            .card.pending-invest
+              .card-header
+                span Pending Invest
+                i.fas.fa-clock.card-icon
+              .card-value
+                span#pendingInvest 0.00 USD
+            
+            .card.pending-withdraw
+              .card-header
+                span Pending withdraw
+                i.fas.fa-hourglass-half.card-icon
+              .card-value
+                span#pendingWithdraw 0.00 USD
+            
+            .card.referral-earn
+              .card-header
+                span Referral earn
+                i.fas.fa-users.card-icon
+              .card-value
+                span#referralEarn 0.00 USD
+          
+          // Referral Section
+          .referral-section
+            .referral-header
+              span Your Referral Link
+            .referral-content
+              .referral-link
+                span#referralLink https://www.equitrust.com/register/joshua
+              .referral-tree
+                span Reference Tree
+    
+        block append head
+            link(rel='stylesheet', href='/stylesheets/dashboard.css')
+            link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet")
+
+block append scripts
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js')
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js')
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js')
+  script(src='/javascripts/dashboard.js') 

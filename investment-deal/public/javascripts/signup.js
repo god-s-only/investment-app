@@ -1,16 +1,64 @@
+// Remove: import { initializeApp } from "firebase/app";
+// Remove: import { getAnalytics } from "firebase/analytics";
+
 // Your Firebase config here
+
+
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    // ...other config
-  };
+  apiKey: "AIzaSyBjlDKt-QOk_1gAQutwBB4M2xTy6_qjgX4",
+  authDomain: "firestore-68a3a.firebaseapp.com",
+  projectId: "firestore-68a3a",
+  storageBucket: "firestore-68a3a.appspot.com",
+  messagingSenderId: "80731087647",
+  appId: "1:80731087647:web:8b9e8630d8cf0ef147c62a",
+  measurementId: "G-JXYJJBZXJD"
+};
+if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-  
-  document.getElementById('signup-form').onsubmit = async function(e) {
+}
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+function showLoading() {
+  const overlay = document.getElementById('loading-overlay');
+  if (overlay) overlay.classList.remove('hidden');
+}
+function hideLoading() {
+  const overlay = document.getElementById('loading-overlay');
+  if (overlay) overlay.classList.add('hidden');
+}
+
+function showErrorModal(message) {
+  // Remove 'Firebase:' prefix and any error code in parentheses at the end (e.g., (auth/email-already-in-use))
+  let cleanMsg = message.replace(/^Firebase:\s*/i, '').replace(/\([^)]*\)\.?\s*$/, '').trim();
+  const modal = document.getElementById('error-modal');
+  const msgSpan = document.getElementById('error-modal-message');
+  if (msgSpan) msgSpan.textContent = cleanMsg;
+  if (modal) modal.classList.remove('hidden');
+  // Optionally, focus the close button for accessibility
+  const closeBtn = document.getElementById('close-error-modal');
+  if (closeBtn) closeBtn.focus();
+}
+function hideErrorModal() {
+  const modal = document.getElementById('error-modal');
+  if (modal) modal.classList.add('hidden');
+}
+// Attach close event
+window.addEventListener('DOMContentLoaded', function() {
+  const closeBtn = document.getElementById('close-error-modal');
+  if (closeBtn) closeBtn.onclick = hideErrorModal;
+  // Also close modal on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') hideErrorModal();
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const signupForm = document.getElementById('signup-form');
+  if (!signupForm) return;
+  signupForm.onsubmit = async function(e) {
     e.preventDefault();
+    showLoading();
     const form = e.target;
     const firstName = form.firstName.value.trim();
     const lastName = form.lastName.value.trim();
@@ -20,13 +68,20 @@ const firebaseConfig = {
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
     const privacy = form.privacy.checked;
-  
-    if (!privacy) return alert('You must agree to the privacy policy.');
-    if (password !== confirmPassword) return alert('Passwords do not match.');
-  
+
+    if (!privacy) {
+      hideLoading();
+      showErrorModal('You must agree to the privacy policy.');
+      return;
+    }
+    if (password !== confirmPassword) {
+      hideLoading();
+      showErrorModal('Passwords do not match.');
+      return;
+    }
+
     try {
       const userCred = await auth.createUserWithEmailAndPassword(email, password);
-      await userCred.user.sendEmailVerification();
       await db.collection('users').doc(userCred.user.uid).set({
         firstName, lastName, username, phone, email,
         accountBalance: "$0.00",
@@ -39,9 +94,13 @@ const firebaseConfig = {
         referralEarn: "$0.00",
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
-      alert('Registration successful! Please check your email for verification.');
-      window.location.href = '/dashboard';
+      await userCred.user.sendEmailVerification();
+      hideLoading();
+      showErrorModal('Registration successful! Please check your email for verification.');
+      window.location.href = '/signin';
     } catch (err) {
-      alert(err.message);
+      hideLoading();
+      showErrorModal(err.message);
     }
   };
+});
