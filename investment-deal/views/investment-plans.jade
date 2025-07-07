@@ -1,0 +1,67 @@
+extends layout
+
+block append head
+  link(rel='stylesheet', href='/stylesheets/home.css')
+
+block content
+  //- Hero Section with Navbar
+  .hero-section
+    include navbar
+    .hero-content
+      .hero-text
+        h1 Investment Plans
+        p Choose the perfect investment plan for your financial goals
+      .hero-bg
+
+  //- Investment Plans Section
+  .plans-section
+    h2 Investment plan
+    .plans
+      .plan.bronze
+        h3 Bronze
+        .plan-rate 20.00 %
+        .plan-period Every week
+        .plan-min Min 2,000.00 USD
+        .plan-max Max 10,000.00 USD
+        .plan-once For 1 Times
+        .plan-capital Capital back Yes
+        .plan-affiliate Affiliate bonus
+        .affiliate-levels
+          span 8% level 1
+          span 12% level 2
+      .plan.silver
+        h3 Silver
+        .plan-rate 80.00 %
+        .plan-period Every Month
+        .plan-min Min 10,000.00 USD
+        .plan-max Max 50,000.00 USD
+        .plan-once For 1 Times
+        .plan-capital Capital back Yes
+        .plan-affiliate Affiliate bonus
+        .affiliate-levels
+          span 2% level 1
+          span 5% level 2
+          span 8% level 3
+          span 10% level 4
+          span 15% level 5
+      .plan.gold
+        h3 Gold Pack
+        .plan-rate 150.00 %
+        .plan-period Every Month
+        .plan-min Min 20,000.00 USD
+        .plan-max Max 10,000,000.00 USD
+        .plan-once For 1 Times
+        .plan-capital Capital back Yes
+        .plan-affiliate Affiliate bonus
+        .affiliate-levels
+          span 10% level 1
+          span 20% level 2
+          span 30% level 3
+          span 40% level 4
+          span 50% level 5
+
+  //- Footer
+  include footer
+
+block append scripts
+  script(src='/javascripts/nav.js') 

@@ -3,33 +3,7 @@ extends layout
 block content
   //- Hero Section
   .hero-section
-    .navbar
-      .logo EquiTrust
-      ul.nav-links
-        li: a(href='/') Home
-        li: a(href='/investment-plans') Investment plans
-        li: a(href='/about') About
-        li: a(href='/contact') Contact
-        li: a(href='/blog') Blog
-      .nav-actions
-        a.button(href='/dashboard') Dashboard
-        button.language English
-      //- Hamburger for mobile
-      .hamburger(onclick='toggleMobileNav()')
-        span
-        span
-        span
-    //- Mobile nav dropdown
-    .mobile-nav#mobileNav
-      ul
-        li: a(href='/') Home
-        li: a(href='/investment-plans') Investment plans
-        li: a(href='/about') About
-        li: a(href='/contact') Contact
-        li: a(href='/blog') Blog
-      .nav-actions
-        a.button(href='/dashboard') Dashboard
-        button.language English
+    include navbar
     .hero-content
       .hero-text
         h1 Got to the next level investing
@@ -210,28 +184,8 @@ block content
       input(type='email', name='email', placeholder='Enter email here', required)
       button(type='submit') Subscribe
 
-  //- Footer Section
-  footer.footer-section
-    .footer-content
-      .footer-contact
-        span
-          | 4E7
-          a(href='mailto:Support@equitrust.com') Support@equitrust.com
-        span
-          | 4DE
-          a(href='tel:+16462321785') +16462321785
-      .footer-logo EquiTrust
-      .footer-social
-        a(href='#') i.fa.fa-facebook
-        a(href='#') i.fa.fa-linkedin
-        a(href='#') i.fa.fa-twitter
-        a(href='#') i.fa.fa-pinterest
-    .footer-links
-      a(href='/') Home
-      a(href='/about') About
-      a(href='/contact') Contact
-    .footer-copyright
-      | Copyright 2025 equitrust. all rights reserved.
+  //- Footer
+  include footer
 
   //- Link to home.css
   block append head

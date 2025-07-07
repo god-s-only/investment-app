@@ -1,0 +1,62 @@
+extends layout
+
+block append head
+  link(rel='stylesheet', href='/stylesheets/home.css')
+
+block content
+  //- Hero Section with Navbar
+  .hero-section
+    include navbar
+    .hero-content
+      .hero-text
+        h1 Blog
+        p Latest insights and updates from the crypto investment world
+      .hero-bg
+
+  //- Blog Section
+  .blog-section
+    .blog-content
+      h2 Latest Articles
+      
+      .blog-posts
+        .blog-post
+          .post-image
+            img(src='/images/blog1.jpg', alt='Crypto Investment Trends')
+          .post-content
+            h3 Crypto Investment Trends 2025
+            p.meta January 15, 2025 | By EquiTrust Team
+            p Discover the latest trends in cryptocurrency investment and how they're shaping the future of digital assets. Learn about emerging opportunities and strategies for maximizing your returns.
+            a.button(href='/blog/crypto-trends-2025') Read More
+
+        .blog-post
+          .post-image
+            img(src='/images/blog2.jpg', alt='Mining Technology')
+          .post-content
+            h3 Advanced Mining Technology
+            p.meta January 10, 2025 | By EquiTrust Team
+            p Explore the cutting-edge mining technology that powers our investment platform. Understand how we leverage the latest innovations to deliver consistent returns.
+            a.button(href='/blog/mining-technology') Read More
+
+        .blog-post
+          .post-image
+            img(src='/images/blog3.jpg', alt='Investment Strategies')
+          .post-content
+            h3 Smart Investment Strategies
+            p.meta January 5, 2025 | By EquiTrust Team
+            p Learn proven investment strategies that can help you navigate the volatile crypto market. Our experts share insights on risk management and portfolio diversification.
+            a.button(href='/blog/investment-strategies') Read More
+
+        .blog-post
+          .post-image
+            img(src='/images/blog4.jpg', alt='Market Analysis')
+          .post-content
+            h3 Market Analysis: Q1 2025
+            p.meta January 1, 2025 | By EquiTrust Team
+            p Get our comprehensive analysis of the cryptocurrency market for Q1 2025. Understand market dynamics and identify potential investment opportunities.
+            a.button(href='/blog/market-analysis-q1-2025') Read More
+
+  //- Footer
+  include footer
+
+block append scripts
+  script(src='/javascripts/nav.js') 

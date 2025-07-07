@@ -1,0 +1,27 @@
+.navbar
+  .logo EquiTrust
+  ul.nav-links
+    li: a(href='/') Home
+    li: a(href='/investment-plans') Investment plans
+    li: a(href='/about') About
+    li: a(href='/contact') Contact
+    li: a(href='/blog') Blog
+  .nav-actions
+    a.button(href='/dashboard') Dashboard
+    button.language English
+  //- Hamburger for mobile
+  .hamburger(onclick='toggleMobileNav()')
+    span
+    span
+    span
+//- Mobile nav dropdown
+.mobile-nav#mobileNav
+  ul
+    li: a(href='/') Home
+    li: a(href='/investment-plans') Investment plans
+    li: a(href='/about') About
+    li: a(href='/contact') Contact
+    li: a(href='/blog') Blog
+  .nav-actions
+    a.button(href='/dashboard') Dashboard
+    button.language English 

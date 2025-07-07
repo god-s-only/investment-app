@@ -33,4 +33,20 @@ router.get('/dashboard', (req, res) => {
   });
 });
 
+router.get('/investment-plans', function(req, res, next) {
+  res.render('investment-plans', { title: 'Investment Plans | EquiTrust' });
+});
+
+router.get('/about', function(req, res, next) {
+  res.render('about', { title: 'About | EquiTrust' });
+});
+
+router.get('/contact', function(req, res, next) {
+  res.render('contact', { title: 'Contact | EquiTrust' });
+});
+
+router.get('/blog', function(req, res, next) {
+  res.render('blog', { title: 'Blog | EquiTrust' });
+});
+
 module.exports = router;

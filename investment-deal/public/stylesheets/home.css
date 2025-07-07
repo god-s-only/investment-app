@@ -690,26 +690,46 @@ ul.nav-links li a:hover {
   }
 }
 
-/* Hamburger menu styles */
+/* Modern Hamburger Menu */
 .hamburger {
   display: none;
   flex-direction: column;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
   cursor: pointer;
   z-index: 1002;
-}
-.hamburger span {
-  height: 4px;
-  width: 100%;
-  background: #ff9900;
-  margin: 5px 0;
-  border-radius: 2px;
-  transition: 0.3s;
+  position: relative;
+  transition: transform 0.3s ease;
 }
 
-/* Mobile nav dropdown */
+.hamburger:hover {
+  transform: scale(1.1);
+}
+
+.hamburger span {
+  height: 3px;
+  width: 100%;
+  background: #ff9900;
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform-origin: center;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Mobile Navigation */
 .mobile-nav {
   display: none;
   position: fixed;
@@ -717,23 +737,26 @@ ul.nav-links li a:hover {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(13, 16, 40, 0.98);
-  z-index: 1001;
+  background: rgba(10, 16, 26, 0.98);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 999;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: 80px;
+  justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-30px);
-  transition: opacity 0.3s cubic-bezier(.4,2,.6,1), transform 0.3s cubic-bezier(.4,2,.6,1);
+  transform: translateY(-100%);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .mobile-nav.open {
   display: flex;
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
 }
+
 .mobile-nav ul {
   list-style: none;
   padding: 0;
@@ -741,25 +764,173 @@ ul.nav-links li a:hover {
   width: 100%;
   text-align: center;
 }
+
 .mobile-nav ul li {
-  margin: 1.5rem 0;
-}
-.mobile-nav ul li a {
-  color: #fff;
-  font-size: 1.3rem;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s;
-}
-.mobile-nav ul li a:hover {
-  color: #ff9900;
-}
-.mobile-nav .nav-actions {
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 2rem;
+  margin: 2rem 0;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.4s ease;
 }
 
+.mobile-nav.open ul li {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-nav.open ul li:nth-child(1) { transition-delay: 0.1s; }
+.mobile-nav.open ul li:nth-child(2) { transition-delay: 0.2s; }
+.mobile-nav.open ul li:nth-child(3) { transition-delay: 0.3s; }
+.mobile-nav.open ul li:nth-child(4) { transition-delay: 0.4s; }
+.mobile-nav.open ul li:nth-child(5) { transition-delay: 0.5s; }
+
+.mobile-nav ul li a {
+  color: #fff;
+  font-size: 1.8rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.mobile-nav ul li a:hover {
+  color: #ff9900;
+  transform: scale(1.1);
+}
+
+.mobile-nav ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: #ff9900;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.mobile-nav ul li a:hover::after {
+  width: 100%;
+}
+
+.mobile-nav .nav-actions {
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.4s ease;
+}
+
+.mobile-nav.open .nav-actions {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.6s;
+}
+
+.mobile-nav .button {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  min-width: 150px;
+}
+
+.mobile-nav .language {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  min-width: 150px;
+}
+
+/* Update existing navbar styles */
+.navbar {
+  position: relative;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 6vw 0 6vw;
+  transition: all 0.3s ease;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ff9900;
+  letter-spacing: 1px;
+  z-index: 1001;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 1rem;
+  z-index: 1001;
+}
+
+/* Enhanced button hover effects */
+.button:hover {
+  background: #ff9900;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 153, 0, 0.3);
+}
+
+.language:hover {
+  background: #252c48;
+  transform: translateY(-2px);
+}
+
+/* Add underline effect to desktop nav links */
+ul.nav-links li a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #ff9900;
+  transition: width 0.3s ease;
+}
+
+ul.nav-links li a:hover::after {
+  width: 100%;
+}
+
+ul.nav-links li a {
+  position: relative;
+}
+
+/* Responsive updates */
+@media (max-width: 1100px) {
+  .navbar {
+    padding: 20px 4vw 0 4vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 18px 4vw 0 4vw;
+  }
+  
+  .logo {
+    font-size: 1.8rem;
+  }
+  
+  ul.nav-links {
+    display: none;
+  }
+  
+  .nav-actions {
+    display: none;
+  }
+  
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* Remove the old hamburger styles and replace with these modern ones */
 .crypto-ticker {
   display: flex;
   align-items: center;

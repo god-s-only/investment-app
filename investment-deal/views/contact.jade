@@ -1,0 +1,54 @@
+extends layout
+
+block append head
+  link(rel='stylesheet', href='/stylesheets/home.css')
+
+block content
+  //- Hero Section with Navbar
+  .hero-section
+    include navbar
+    .hero-content
+      .hero-text
+        h1 Contact Us
+        p Get in touch with our team for support and inquiries
+      .hero-bg
+
+  //- Contact Section
+  .contact-section
+    .contact-content
+      h2 Get in Touch
+      p We're here to help and answer any questions you might have. We look forward to hearing from you.
+      
+      .contact-info
+        .contact-item
+          h3 Email
+          p: a(href='mailto:Support@equitrust.com') Support@equitrust.com
+        .contact-item
+          h3 Phone
+          p: a(href='tel:+16462321785') +16462321785
+        .contact-item
+          h3 Address
+          p 123 Investment Street<br>Financial District<br>New York, NY 10001
+
+      .contact-form
+        h3 Send us a Message
+        form(action='/contact', method='POST')
+          .form-group
+            label(for='name') Name
+            input(type='text', id='name', name='name', required)
+          .form-group
+            label(for='email') Email
+            input(type='email', id='email', name='email', required)
+          .form-group
+            label(for='subject') Subject
+            input(type='text', id='subject', name='subject', required)
+          .form-group
+            label(for='message') Message
+            textarea(id='message', name='message', rows='5', required)
+          button.button.orange(type='submit') Send Message
+
+  //- Footer
+  include footer
+
+block append scripts
+  script(src='/javascripts/nav.js') 
