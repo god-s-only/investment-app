@@ -2,6 +2,7 @@ extends layout
 
 block append head
   link(rel='stylesheet', href='/stylesheets/home.css')
+  link(rel='stylesheet', href='/stylesheets/about.css')
 
 block content
   //- Hero Section with Navbar
@@ -10,31 +11,59 @@ block content
     .hero-content
       .hero-text
         h1 About Us
-        p Learn more about EquiTrust and our mission
+        p Learn more about EquiTrust and our mission to revolutionize cryptocurrency investment
       .hero-bg
 
-  //- About Section
+  //- Modern About Section
   .about-section
-    .about-image.animated-bitcoin
-      // SVG for two thin animated lines (circles)
-      svg(class='orbit orbit1', width='180', height='180')
-        circle(cx='90', cy='90', r='85', fill='none', stroke='#ff9900', 'stroke-width'='2', 'stroke-dasharray'='6,8')
-      svg(class='orbit orbit2', width='140', height='140')
-        circle(cx='70', cy='70', r='65', fill='none', stroke='#fff', 'stroke-width'='1', 'stroke-dasharray'='4,10')
-      // Balls
-      .orbit-ball.ball1
-      .orbit-ball.ball2
-      img(src='https://img.icons8.com/fluency/480/000000/bitcoin.png', alt='Bitcoin')
-    .about-content
-      h2 About us
-      p EquiTrust is dedicated to transforming the landscape of cryptocurrency investment.
-      p Founded by a team of seasoned experts in digital assets, our mission is to democratize access to the lucrative world of crypto mining. We strive to make cryptocurrency investment accessible and profitable for everyone.
-      p At EquiTrust, we prioritize transparency, security, and excellence. Utilizing cutting-edge technology and industry-leading strategies, we aim to deliver consistent and competitive returns for our investors. Our platform provides a trusted space where individuals can confidently grow their wealth through strategic crypto investments.
-      p Our team of dedicated professionals brings years of experience and a deep understanding of the ever-evolving crypto landscape. By staying ahead of market trends and leveraging our expertise, we empower investors to navigate the complexities of cryptocurrency with ease and confidence.
-      p We believe in the transformative power of cryptocurrency to shape lives and futures. Whether you're new to digital assets or a seasoned investor, we invite you to join us on this exciting journey towards financial freedom and success. Unlock the potential of cryptocurrency investment with EquiTrust today.
+    .about-container
+      .about-header
+        h2 About EquiTrust
+        p Pioneering the future of cryptocurrency investment with innovation, security, and excellence
+
+      .about-content
+        .about-text
+          h3 Our Story
+          p EquiTrust is dedicated to transforming the landscape of cryptocurrency investment. Founded by a team of seasoned experts in digital assets, our mission is to democratize access to the lucrative world of crypto mining and trading.
+          p We strive to make cryptocurrency investment accessible, secure, and profitable for everyone. Through cutting-edge technology and industry-leading strategies, we provide our clients with the tools and expertise needed to navigate the dynamic crypto market successfully.
+          p At EquiTrust, we believe in the transformative power of cryptocurrency to shape the future of finance. Our platform serves as a bridge between traditional investment principles and the revolutionary potential of digital assets.
+
+        .about-visual
+          .crypto-visual
+            .crypto-icon
+              svg(viewBox="0 0 24 24" fill="currentColor")
+                path(d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z")
+            .floating-elements
+              .floating-element
+              .floating-element
+              .floating-element
+              .floating-element
+
+      .about-stats
+        .stat-card
+          .stat-number $50M+
+          .stat-label Assets Under Management
+        .stat-card
+          .stat-number 10,000+
+          .stat-label Active Investors
+        .stat-card
+          .stat-number 24/7
+          .stat-label Market Monitoring
+        .stat-card
+          .stat-number 99.9%
+          .stat-label Platform Uptime
+
+      .mission-vision
+        .mission-card
+          h3 Our Mission
+          p To democratize access to cryptocurrency investment opportunities while maintaining the highest standards of security, transparency, and profitability. We empower individuals and institutions to participate in the digital economy with confidence and success.
+
+        .vision-card
+          h3 Our Vision
+          p To become the world's most trusted cryptocurrency investment platform, leading the industry in innovation, reliability, and customer satisfaction. We envision a future where digital assets are accessible to everyone, everywhere.
 
   //- Footer
   include footer
 
 block append scripts
-  script(src='/javascripts/nav.js') 
+  script(src='/javascripts/nav.js')

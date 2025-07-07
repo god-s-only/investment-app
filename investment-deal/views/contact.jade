@@ -2,6 +2,7 @@ extends layout
 
 block append head
   link(rel='stylesheet', href='/stylesheets/home.css')
+  link(rel='stylesheet', href='/stylesheets/contact.css')
 
 block content
   //- Hero Section with Navbar
@@ -10,45 +11,149 @@ block content
     .hero-content
       .hero-text
         h1 Contact Us
-        p Get in touch with our team for support and inquiries
+        p Get in touch with our team for support, inquiries, and investment opportunities
       .hero-bg
 
-  //- Contact Section
+  //- Modern Contact Section
   .contact-section
-    .contact-content
-      h2 Get in Touch
-      p We're here to help and answer any questions you might have. We look forward to hearing from you.
-      
-      .contact-info
-        .contact-item
-          h3 Email
-          p: a(href='mailto:Support@equitrust.com') Support@equitrust.com
-        .contact-item
-          h3 Phone
-          p: a(href='tel:+16462321785') +16462321785
-        .contact-item
-          h3 Address
-          p 123 Investment Street<br>Financial District<br>New York, NY 10001
+    .contact-container
+      .contact-header
+        h2 Get in Touch
+        p We're here to help and answer any questions you might have. Our team of experts is ready to assist you with your investment journey.
 
-      .contact-form
-        h3 Send us a Message
-        form(action='/contact', method='POST')
-          .form-group
-            label(for='name') Name
-            input(type='text', id='name', name='name', required)
-          .form-group
-            label(for='email') Email
-            input(type='email', id='email', name='email', required)
-          .form-group
-            label(for='subject') Subject
-            input(type='text', id='subject', name='subject', required)
-          .form-group
-            label(for='message') Message
-            textarea(id='message', name='message', rows='5', required)
-          button.button.orange(type='submit') Send Message
+      .contact-content
+        .contact-info-section
+          h3 Contact Information
+          .contact-info
+            .contact-item
+              .contact-icon 📧
+              .contact-details
+                h4 Email Support
+                p: a(href='mailto:support@equitrust.com') support@equitrust.com
+                p: a(href='mailto:info@equitrust.com') info@equitrust.com
+
+            .contact-item
+              .contact-icon 📞
+              .contact-details
+                h4 Phone Support
+                p: a(href='tel:+16462321785') +1 (646) 232-1785
+                p Available 24/7 for urgent matters
+
+            .contact-item
+              .contact-icon 📍
+              .contact-details
+                h4 Office Address
+                p 123 Investment Street
+                p Financial District
+                p New York, NY 10001
+
+            .contact-item
+              .contact-icon 💬
+              .contact-details
+                h4 Live Chat
+                p Available on our website
+                p Monday - Friday, 9 AM - 6 PM EST
+
+        .contact-form-section
+          h3 Send us a Message
+          .success-message#successMessage
+            | Thank you for your message! We'll get back to you within 24 hours.
+          
+          form.contact-form(action='/contact', method='POST')
+            .form-row
+              .form-group
+                label(for='firstName') First Name
+                input(type='text', id='firstName', name='firstName', placeholder='Enter your first name', required)
+              .form-group
+                label(for='lastName') Last Name
+                input(type='text', id='lastName', name='lastName', placeholder='Enter your last name', required)
+
+            .form-row
+              .form-group
+                label(for='email') Email Address
+                input(type='email', id='email', name='email', placeholder='Enter your email address', required)
+              .form-group
+                label(for='phone') Phone Number
+                input(type='tel', id='phone', name='phone', placeholder='Enter your phone number')
+
+            .form-group
+              label(for='subject') Subject
+              select(id='subject', name='subject', required)
+                option(value='') Select a topic
+                option(value='investment') Investment Inquiry
+                option(value='support') Technical Support
+                option(value='account') Account Management
+                option(value='partnership') Partnership Opportunities
+                option(value='other') Other
+
+            .form-group
+              label(for='message') Message
+              textarea(id='message', name='message', placeholder='Tell us how we can help you...', rows='5', required)
+
+            .form-submit
+              button.button(type='submit') Send Message
+
+      .additional-info
+        .info-card
+          h4 🕐 Office Hours
+          p Monday - Friday: 9:00 AM - 6:00 PM EST
+          p Saturday: 10:00 AM - 4:00 PM EST
+          p Sunday: Closed
+
+        .info-card
+          h4 ⚡ Response Time
+          p Email: Within 24 hours
+          p Phone: Immediate during business hours
+          p Live Chat: Average 2-3 minutes
+
+        .info-card
+          h4 🛡️ Security Notice
+          p All communications are encrypted
+          p We never ask for passwords via email
+          p Report suspicious activity immediately
 
   //- Footer
   include footer
 
 block append scripts
-  script(src='/javascripts/nav.js') 
+  script(src='/javascripts/nav.js')
+  script.
+    // Contact form handling
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('.contact-form');
+      const successMessage = document.getElementById('successMessage');
+      
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Show success message
+        successMessage.classList.add('show');
+        
+        // Reset form
+        form.reset();
+        
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          successMessage.classList.remove('show');
+        }, 5000);
+        
+        // Scroll to top of form
+        document.querySelector('.contact-form-section').scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+      
+      // Add floating label effect
+      const inputs = document.querySelectorAll('input, textarea, select');
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.parentElement.classList.add('focused');
+        });
+        
+        input.addEventListener('blur', function() {
+          if (!this.value) {
+            this.parentElement.classList.remove('focused');
+          }
+        });
+      });
+    });
