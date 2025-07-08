@@ -1,0 +1,758 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: white;
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    padding: 20px 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px;
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff8c00;
+}
+
+.logo i {
+    font-size: 28px;
+}
+
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+    background: rgba(255, 140, 0, 0.1);
+    border-left-color: #ff8c00;
+}
+
+.nav-item.active {
+    background: rgba(255, 140, 0, 0.2);
+    border-left-color: #ff8c00;
+    color: #ff8c00;
+}
+
+.nav-item i {
+    font-size: 18px;
+    width: 20px;
+}
+
+.nav-item span {
+    font-size: 14px;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 0 10px;
+}
+
+.header-left span {
+    font-size: 14px;
+    color: #ccc;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.user-info i {
+    font-size: 20px;
+    color: #ff8c00;
+}
+
+/* Transaction Content */
+.transaction-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.transaction-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.transaction-header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #ff8c00;
+}
+
+.transaction-header p {
+    font-size: 1.1em;
+    color: #ccc;
+}
+
+/* Filter Section */
+.filter-section {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    gap: 20px;
+    align-items: end;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 150px;
+}
+
+.filter-group label {
+    font-size: 14px;
+    color: #ff8c00;
+    font-weight: bold;
+}
+
+.filter-group select {
+    padding: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: #ff8c00;
+}
+
+.filter-group select option {
+    background: #2d2d2d;
+    color: white;
+}
+
+.filter-btn {
+    background: linear-gradient(135deg, #ff8c00, #ffaa00);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: fit-content;
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 140, 0, 0.4);
+}
+
+/* Table Container - Desktop */
+.table-container {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    overflow-x: auto;
+}
+
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.transaction-table thead {
+    background: rgba(255, 140, 0, 0.1);
+}
+
+.transaction-table th,
+.transaction-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.transaction-table th {
+    font-weight: bold;
+    color: #ff8c00;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.transaction-table td {
+    color: #ccc;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.transaction-table tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.transaction-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Mobile Card Layout */
+.mobile-cards {
+    display: none;
+    gap: 15px;
+    flex-direction: column;
+}
+
+.transaction-card {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.transaction-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(255, 140, 0, 0.1);
+    border-color: rgba(255, 140, 0, 0.3);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.card-id {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ff8c00;
+}
+
+.card-amount {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    text-align: right;
+}
+
+.card-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.card-detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-detail-label {
+    font-size: 12px;
+    color: #ff8c00;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+}
+
+.card-detail-value {
+    font-size: 14px;
+    color: #ccc;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.card-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-pending {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.status-completed {
+    background: rgba(40, 167, 69, 0.2);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.status-failed {
+    background: rgba(220, 53, 69, 0.2);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+/* Type Badges */
+.type-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.type-deposit {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4caf50;
+}
+
+.type-withdraw {
+    background: rgba(255, 87, 34, 0.2);
+    color: #ff5722;
+}
+
+.type-investment {
+    background: rgba(33, 150, 243, 0.2);
+    color: #2196f3;
+}
+
+.type-profit {
+    background: rgba(156, 39, 176, 0.2);
+    color: #9c27b0;
+}
+
+/* Action Buttons */
+.action-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.action-btn.view {
+    background: rgba(33, 150, 243, 0.2);
+    color: #2196f3;
+}
+
+.action-btn.view:hover {
+    background: rgba(33, 150, 243, 0.3);
+}
+
+/* Empty State */
+.empty-row {
+    height: 400px;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 20px;
+    color: #ccc;
+}
+
+.empty-state i {
+    font-size: 4em;
+    color: #ff8c00;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    font-size: 1em;
+    text-align: center;
+    max-width: 400px;
+    line-height: 1.5;
+}
+
+.cta-btn {
+    background: linear-gradient(135deg, #ff8c00, #ffaa00);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(255, 140, 0, 0.4);
+}
+
+/* Pagination */
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    padding: 0 10px;
+}
+
+.pagination-container.hidden {
+    display: none;
+}
+
+.pagination-info {
+    color: #ccc;
+    font-size: 14px;
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.pagination-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-numbers {
+    display: flex;
+    gap: 5px;
+}
+
+.page-number {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 35px;
+}
+
+.page-number:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.page-number.active {
+    background: linear-gradient(135deg, #ff8c00, #ffaa00);
+    color: white;
+}
+
+/* Mobile Table Responsiveness - Replace the existing mobile styles with these */
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 10px 0;
+    }
+    
+    .nav-menu {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 10px;
+        padding: 0 10px;
+    }
+    
+    .nav-item {
+        flex-shrink: 0;
+        padding: 10px 15px;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        white-space: nowrap;
+    }
+    
+    .nav-item:hover,
+    .nav-item.active {
+        border-left: none;
+        border-bottom-color: #ff8c00;
+    }
+    
+    .main-content {
+        padding: 15px;
+    }
+    
+    .transaction-header h1 {
+        font-size: 2em;
+    }
+    
+    .filter-section {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+    
+    .filter-group {
+        min-width: 100%;
+    }
+    
+    /* Mobile Table Styles - Keep table visible but make it responsive */
+    .table-container {
+        padding: 15px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .transaction-table {
+        min-width: 800px; /* Minimum width to maintain readability */
+        font-size: 12px;
+    }
+    
+    .transaction-table th,
+    .transaction-table td {
+        padding: 10px 8px;
+        white-space: nowrap;
+    }
+    
+    .transaction-table th {
+        font-size: 11px;
+        position: sticky;
+        top: 0;
+        background: rgba(255, 140, 0, 0.2);
+        z-index: 1;
+    }
+    
+    /* Alternatively, you can use this card-based approach */
+    /* If you prefer cards, uncomment the next section and comment out the table styles above */
+    
+    /*
+    .table-container {
+        display: none;
+    }
+    
+    .mobile-cards {
+        display: flex;
+    }
+    */
+    
+    .pagination-container {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .pagination-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .page-numbers {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* Enhanced Mobile Table Scrolling */
+@media (max-width: 768px) {
+    .table-container {
+        position: relative;
+    }
+    
+    .table-container::before {
+        content: "← Scroll to view more →";
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        font-size: 10px;
+        color: #ff8c00;
+        opacity: 0.7;
+        z-index: 2;
+    }
+    
+    /* Sticky first column for better UX */
+    .transaction-table th:first-child,
+    .transaction-table td:first-child {
+        position: sticky;
+        left: 0;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1;
+    }
+    
+    .transaction-table th:first-child {
+        z-index: 3;
+    }
+}
+
+/* Alternative: Stack layout for very small screens */
+@media (max-width: 480px) {
+    .transaction-table {
+        min-width: 100%;
+    }
+    
+    .transaction-table,
+    .transaction-table thead,
+    .transaction-table tbody,
+    .transaction-table th,
+    .transaction-table td,
+    .transaction-table tr {
+        display: block;
+    }
+    
+    .transaction-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    .transaction-table tr {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        margin-bottom: 15px;
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.3);
+    }
+    
+    .transaction-table td {
+        border: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
+        padding: 10px 15px 10px 40%;
+        text-align: left;
+    }
+    
+    .transaction-table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 6px;
+        width: 35%;
+        padding-right: 10px;
+        white-space: nowrap;
+        color: #ff8c00;
+        font-weight: bold;
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+    
+    .transaction-table td:last-child {
+        border-bottom: 0;
+    }
+    
+    .empty-row {
+        display: table-row;
+    }
+    
+    .empty-row td {
+        display: table-cell;
+        text-align: center;
+        padding: 40px 20px;
+    }
+}

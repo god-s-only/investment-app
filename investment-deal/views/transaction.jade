@@ -1,0 +1,135 @@
+extends layout
+
+block content
+  .container
+    // Navigation Sidebar
+    .sidebar
+      .logo
+        i.fas.fa-coins
+        span EquiTrust
+      
+      nav.nav-menu
+        .nav-item(onclick="navigateTo('/dashboard')")
+          i.fas.fa-tachometer-alt
+          span Dashboard
+        
+        .nav-item(onclick="navigateTo('/investment')")
+          i.fas.fa-chart-line
+          span Investment
+        
+        .nav-item(onclick="navigateTo('/deposit')")
+          i.fas.fa-money-bill-wave
+          span Deposit
+        
+        .nav-item(onclick="navigateTo('/withdraw')")
+          i.fas.fa-hand-holding-usd
+          span Withdraw
+        
+        .nav-item.active
+          i.fas.fa-receipt
+          span Transaction log
+        
+        .nav-item(onclick="handleLogout()")
+          i.fas.fa-sign-out-alt
+          span Logout
+    
+    // Main Content
+    .main-content
+      // Top Header
+      .top-header
+        .header-left
+          span English
+        .header-right
+          .user-info
+            i.fas.fa-user-circle
+            span#userName Loading...
+      
+      // Transaction Log Content
+      .transaction-content
+        .transaction-header
+          h1 Transaction History
+          p Track all your deposits, withdrawals, and investment activities
+        
+        // Filter Section
+        .filter-section
+          .filter-group
+            label(for="dateFilter") Date Range:
+            select#dateFilter
+              option(value="all") All Time
+              option(value="today") Today
+              option(value="week") This Week
+              option(value="month") This Month
+              option(value="year") This Year
+          
+          .filter-group
+            label(for="typeFilter") Transaction Type:
+            select#typeFilter
+              option(value="all") All Types
+              option(value="deposit") Deposits
+              option(value="withdraw") Withdrawals
+              option(value="investment") Investments
+              option(value="profit") Profits
+          
+          .filter-group
+            label(for="statusFilter") Status:
+            select#statusFilter
+              option(value="all") All Status
+              option(value="pending") Pending
+              option(value="completed") Completed
+              option(value="failed") Failed
+          
+          button.filter-btn(onclick="applyFilters()")
+            i.fas.fa-filter
+            span Apply Filters
+        
+        // Transaction Table
+        .table-container
+          table.transaction-table
+            thead
+              tr
+                th Date & Time
+                th Transaction ID
+                th Type
+                th Amount
+                th Status
+                th Plan
+                th Actions
+            tbody#transactionTableBody
+              tr.empty-row
+                td(colspan="7")
+                  .empty-state
+                    i.fas.fa-inbox
+                    h3 No Transactions Found
+                    p You haven't made any transactions yet. Start by making a deposit or investment.
+                    
+        
+        // Pagination
+        .pagination-container.hidden
+          .pagination-info
+            span Showing 
+            span#currentRange 0-0
+            span  of 
+            span#totalTransactions 0
+            span  transactions
+          
+          .pagination-controls
+            button.pagination-btn(onclick="previousPage()" disabled)
+              i.fas.fa-chevron-left
+              span Previous
+            
+            .page-numbers
+              // Dynamic page numbers will be inserted here
+            
+            button.pagination-btn(onclick="nextPage()" disabled)
+              span Next
+              i.fas.fa-chevron-right
+
+block append head
+  link(rel='stylesheet', href='/stylesheets/transaction.css')
+  link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet")
+
+block append scripts
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js')
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js')
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js')
+  script(src='/javascripts/transactions.js')    

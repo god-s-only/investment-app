@@ -48,5 +48,11 @@ router.get('/contact', function(req, res, next) {
 router.get('/blog', function(req, res, next) {
   res.render('blog', { title: 'Blog | EquiTrust' });
 });
+router.get('/deposit', function(req, res, next) {
+  res.render('deposit', { title: 'Deposit | EquiTrust' });
+});
+router.get('/transaction-log', function(req, res, next) {
+  res.render('transaction', { title: 'Transaction | EquiTrust' });
+});
 
 module.exports = router;

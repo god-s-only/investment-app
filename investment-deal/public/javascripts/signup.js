@@ -92,7 +92,8 @@ document.addEventListener('DOMContentLoaded', function() {
         pendingInvest: "$0.00",
         pendingWithdraw: "$0.00",
         referralEarn: "$0.00",
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        currentPlan:"N/A",
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       });
       await userCred.user.sendEmailVerification();
       hideLoading();

@@ -1,0 +1,153 @@
+extends layout
+
+block content
+  #loadingModal.loading-modal
+    .loading-content
+      .loading-spinner
+      p Processing Payment...
+  
+  // Success notification
+  #successNotification.success-notification.hidden
+    .notification-content
+      i.fas.fa-check-circle
+      span Payment will be confirmed shortly
+      i.fas.fa-times.close-btn(onclick="hideNotification()")
+  
+  .container
+    // Navigation Sidebar
+    .sidebar
+      .logo
+        i.fas.fa-coins
+        span EquiTrust
+      
+      nav.nav-menu
+        .nav-item
+          i.fas.fa-tachometer-alt
+          span Dashboard
+        
+        .nav-item
+          i.fas.fa-chart-line
+          span Investment
+        
+        .nav-item.active
+          i.fas.fa-money-bill-wave
+          span Deposit
+        
+        .nav-item
+          i.fas.fa-hand-holding-usd
+          span Withdraw
+        
+        .nav-item
+          i.fas.fa-receipt
+          span Transaction log
+        
+        .nav-item
+          i.fas.fa-sign-out-alt
+          span Logout
+    
+    // Main Content
+    .main-content
+      // Top Header
+      .top-header
+        .header-left
+          span English
+        .header-right
+          .user-info
+            i.fas.fa-user-circle
+            span#userName Loading...
+      
+      // Deposit Content
+      .deposit-content
+        .deposit-header
+          h1 Select Investment Package
+          p Choose the plan that best fits your investment goals
+        
+        // Investment Plans Tabs
+        .investment-plans
+          .plan-tab.active(data-plan="Bronze")
+            .plan-header
+              h3 Bronze
+              .plan-badge Basic
+            .plan-details
+              .plan-rate 20.00%
+              .plan-frequency Every week
+              .plan-range Min 2,000.00 USD - Max 10,000.00 USD
+              .plan-duration For 1 Times
+              .plan-capital Capital back: Yes
+          
+          .plan-tab(data-plan="Silver")
+            .plan-header
+              h3 Silver
+              .plan-badge Premium
+            .plan-details
+              .plan-rate 80.00%
+              .plan-frequency Every Month
+              .plan-range Min 10,000.00 USD - Max 50,000.00 USD
+              .plan-duration For 1 Times
+              .plan-capital Capital back: Yes
+          
+          .plan-tab(data-plan="Gold Pack")
+            .plan-header
+              h3 Gold Pack
+              .plan-badge Elite
+            .plan-details
+              .plan-rate 150.00%
+              .plan-frequency Every Month
+              .plan-range Min 20,000.00 USD - Max 10,000,000.00 USD
+              .plan-duration For 1 Times
+              .plan-capital Capital back: Yes
+        
+        // Payment Section
+        .payment-section
+          .payment-form
+            .form-group
+              label(for="depositAmount") Investment Amount (USD)
+              input#depositAmount(type="number" placeholder="Enter amount" min="2000" step="0.01")
+              .amount-error.hidden Invalid amount for selected plan
+            
+            .form-group
+              label Selected Plan
+              input#selectedPlan(type="text" value="Bronze" readonly)
+            
+            .form-group
+              label Bitcoin Equivalent
+              .bitcoin-amount
+                span#btcAmount 0.00000000 BTC
+                .btc-rate (Rate: $0.00 per BTC)
+          
+          .payment-info
+            .qr-section
+              .qr-header
+                h3 Bitcoin Payment
+                p Scan QR code or copy address below
+              .qr-code
+                img(src="https://firebasestorage.googleapis.com/v0/b/pet-idea.appspot.com/o/profilePics%2F49df27dd-ae5c-408f-9693-0ffdc3f3ed36.jpeg?alt=media&token=79c0ceff-72cb-49e1-ab14-ac33f2f7d3d0" alt="Bitcoin QR Code")
+              .wallet-address
+                .address-label Bitcoin Address:
+                .address-input
+                  input#btcAddress(type="text" value="1PwEYiBbQtqLqnU42VbLbS2edaknPV1AXs" readonly)
+                  button.copy-btn(onclick="copyToClipboard()")
+                    i.fas.fa-copy
+            
+            .payment-instructions
+              h4 Payment Instructions:
+              ol
+                li Select your preferred investment package
+                li Enter the amount you wish to invest
+                li Send the exact Bitcoin amount to the address above
+                li Click "I have completed the payment" after sending
+                li Wait for confirmation (usually 10-30 minutes)
+            
+            .payment-actions
+              button#completePayment.complete-payment-btn(disabled) I have completed the payment
+              button.cancel-btn(onclick="window.location.href='/dashboard'") Cancel
+
+block append head
+  link(rel='stylesheet', href='/stylesheets/deposit.css')
+  link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet")
+
+block append scripts
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js')
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js')
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js')
+  script(src='/javascripts/deposit.js')

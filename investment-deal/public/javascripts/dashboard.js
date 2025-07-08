@@ -80,7 +80,7 @@ const firebaseConfig = {
       const currentUser = auth.currentUser;
       if (!currentUser) {
         console.error('No user is signed in');
-        window.location.href = '/login'; // Redirect to login if no user
+        window.location.href = '/signin'; // Redirect to login if no user
         return;
       }
   
@@ -97,7 +97,6 @@ const firebaseConfig = {
         
         // Generate referral link
         const username = userData.username || 'user';
-        referralLinkElement.textContent = `https://www.equitrust.com/register/${username}`;
         
       } else {
         console.error('User document not found');
@@ -127,7 +126,6 @@ const firebaseConfig = {
     currentInvestElement.textContent = formatCurrency(userData.currentInvest || 0);
     pendingInvestElement.textContent = formatCurrency(userData.pendingInvest || 0);
     pendingWithdrawElement.textContent = formatCurrency(userData.pendingWithdraw || 0);
-    referralEarnElement.textContent = formatCurrency(userData.referralEarn || 0);
     
     // Update current plan
     currentPlanElement.textContent = userData.currentPlan || 'N/A';
@@ -303,7 +301,6 @@ const firebaseConfig = {
         setupNavigation();
         
         // Add click handler for referral link
-        referralLinkElement.addEventListener('click', copyReferralLink);
         
       } else {
         // User is not signed in
