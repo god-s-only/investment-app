@@ -1,0 +1,151 @@
+extends layout
+
+block content
+  .container
+    // Navigation Sidebar
+    .sidebar
+      .logo
+        i.fas.fa-coins
+        span EquiTrust
+      
+      nav.nav-menu
+        .nav-item(onclick="navigateTo('/dashboard')")
+          i.fas.fa-tachometer-alt
+          span Dashboard
+        
+        .nav-item(onclick="navigateTo('/investment')")
+          i.fas.fa-chart-line
+          span Investment
+        
+        .nav-item(onclick="navigateTo('/deposit')")
+          i.fas.fa-money-bill-wave
+          span Deposit
+        
+        .nav-item.active
+          i.fas.fa-hand-holding-usd
+          span Withdraw
+        
+        .nav-item(onclick="navigateTo('/transaction-log')")
+          i.fas.fa-receipt
+          span Transaction log
+        
+        .nav-item(onclick="handleLogout()")
+          i.fas.fa-sign-out-alt
+          span Logout
+    
+    // Main Content
+    .main-content
+      // Top Header
+      .top-header
+        .header-left
+          span English
+        .header-right
+          .user-info
+            i.fas.fa-user-circle
+            span#userName Loading...
+      
+      // Success Notification
+      .success-notification#successNotification.hidden
+        .notification-content
+          .notification-icon
+            i.fas.fa-check-circle
+          .notification-text
+            h3 Withdrawal Request Submitted!
+            p Your withdrawal request has been processed and is pending approval.
+          .notification-close(onclick="hideNotification()")
+            i.fas.fa-times
+
+      // Error Notification
+      .error-notification#errorNotification.hidden
+        .notification-content
+          .notification-icon
+            i.fas.fa-exclamation-circle
+          .notification-text
+            h3#errorTitle Error
+            p#errorMessage Something went wrong
+          .notification-close(onclick="hideErrorNotification()")
+            i.fas.fa-times
+      
+      // Loading Modal
+      .loading-modal#loadingModal.hidden
+        .loading-content
+          .loading-spinner
+          h3 Processing Withdrawal...
+          p Please wait while we process your request
+      
+      // Withdraw Content
+      .withdraw-content
+        .withdraw-header
+          h1 Withdraw Funds
+          p Request a withdrawal from your account balance
+        
+        // Account Balance Card
+        .balance-card
+          .balance-info
+            .balance-label Account Balance
+            .balance-amount#accountBalance $0.00
+          .balance-details
+            .balance-detail
+              span Available for withdrawal:
+              span#availableBalance $0.00
+            .balance-detail
+              span Pending withdrawals:
+              span#pendingWithdrawals $0.00
+        
+        // Withdraw Form
+        .withdraw-form
+          .form-header
+            h2 Withdrawal Request
+            p Enter the amount you wish to withdraw
+          
+          .form-group
+            label(for="withdrawAmount") Withdrawal Amount (USD)
+            .input-wrapper
+              .input-prefix $
+              input#withdrawAmount(type="number" placeholder="0.00" min="0" step="0.01")
+            .amount-error.hidden Amount must be valid and not exceed your available balance
+          
+          .form-group
+            label(for="withdrawalMethod") Withdrawal Method
+            select#withdrawalMethod
+              option(value="bank") Bank Transfer
+              option(value="crypto") Cryptocurrency
+              option(value="paypal") PayPal
+          
+          .form-group
+            label(for="withdrawalDetails") Account Details
+            textarea#withdrawalDetails(placeholder="Enter your account details (bank account, crypto wallet, or PayPal email)")
+          
+          .form-group
+            label(for="withdrawalNotes") Additional Notes (Optional)
+            textarea#withdrawalNotes(placeholder="Any additional information or special instructions")
+          
+          .withdrawal-info
+            .info-item
+              i.fas.fa-info-circle
+              span Minimum withdrawal amount: $100
+            .info-item
+              i.fas.fa-clock
+              span Processing time: 3-5 business days
+            .info-item
+              i.fas.fa-shield-alt
+              span All withdrawals are subject to verification
+          
+          .form-actions
+            button.submit-btn#submitWithdrawal(type="button" disabled)
+              i.fas.fa-hand-holding-usd
+              span Submit Withdrawal Request
+            
+            button.cancel-btn(type="button" onclick="clearForm()")
+              i.fas.fa-times
+              span Clear Form
+
+block append head
+  link(rel='stylesheet', href='/stylesheets/withdraw.css')
+  link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet")
+
+block append scripts
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js')
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js')
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js')
+  script(src='/javascripts/withdraw.js')

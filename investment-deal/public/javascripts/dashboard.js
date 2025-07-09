@@ -125,7 +125,7 @@ const firebaseConfig = {
     totalInvestElement.textContent = formatCurrency(userData.totalInvest || 0);
     currentInvestElement.textContent = formatCurrency(userData.currentInvest || 0);
     pendingInvestElement.textContent = formatCurrency(userData.pendingInvest || 0);
-    pendingWithdrawElement.textContent = formatCurrency(userData.pendingWithdraw || 0);
+    pendingWithdrawElement.textContent = formatCurrency(userData.pendingWithdrawals || 0);
     
     // Update current plan
     currentPlanElement.textContent = userData.currentPlan || 'N/A';
@@ -142,7 +142,7 @@ const firebaseConfig = {
         totalInvest: 0,
         currentInvest: 0,
         pendingInvest: 0,
-        pendingWithdraw: 0,
+        pendingWithdrawals: 0,
         referralEarn: 0,
         currentPlan: 'N/A',
         createdAt: firebase.firestore.FieldValue.serverTimestamp()

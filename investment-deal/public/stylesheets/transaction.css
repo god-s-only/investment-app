@@ -610,6 +610,24 @@ body {
         padding: 15px;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        position: relative;
+    }
+    
+    .table-container::before {
+        content: "← Scroll to view more →";
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        font-size: 10px;
+        color: #ff8c00;
+        opacity: 0.7;
+        z-index: 2;
+        display: none;
+    }
+    .table-container:after {
+        content: '';
+        display: block;
+        clear: both;
     }
     
     .transaction-table {
@@ -621,6 +639,19 @@ body {
     .transaction-table td {
         padding: 10px 8px;
         white-space: nowrap;
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+    }
+    .transaction-table td:nth-child(4) {
+        /* Amount column */
+        max-width: 90px;
+        color: #ff8c00;
+        font-weight: bold;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
     
     .transaction-table th {
@@ -692,67 +723,92 @@ body {
     }
 }
 
-/* Alternative: Stack layout for very small screens */
+/* Remove stacked table layout for mobile */
 @media (max-width: 480px) {
-    .transaction-table {
-        min-width: 100%;
+    .table-container {
+        display: none !important;
     }
-    
-    .transaction-table,
-    .transaction-table thead,
-    .transaction-table tbody,
-    .transaction-table th,
-    .transaction-table td,
-    .transaction-table tr {
-        display: block;
+    .mobile-cards {
+        display: flex !important;
+        gap: 10px;
     }
-    
-    .transaction-table thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
+}
+
+@media (max-width: 480px) {
+    .mobile-cards {
+        gap: 10px;
     }
-    
-    .transaction-table tr {
-        border: 1px solid rgba(255, 255, 255, 0.1);
+    .card-amount {
+        font-size: 1.1em;
+        max-width: 90px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-cards {
+        display: flex !important;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .transaction-card {
+        background: rgba(0,0,0,0.3);
         border-radius: 10px;
-        margin-bottom: 15px;
-        padding: 15px;
-        background: rgba(0, 0, 0, 0.3);
+        padding: 12px 14px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        overflow: visible;
+        min-width: 0;
     }
-    
-    .transaction-table td {
-        border: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        position: relative;
-        padding: 10px 15px 10px 40%;
-        text-align: left;
+    .card-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        width: 100%;
     }
-    
-    .transaction-table td:before {
-        content: attr(data-label);
-        position: absolute;
-        left: 6px;
-        width: 35%;
-        padding-right: 10px;
-        white-space: nowrap;
+    .card-id {
+        font-size: 0.98em;
+        font-weight: 600;
         color: #ff8c00;
+        word-break: break-all;
+        margin-bottom: 2px;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .card-amount {
+        color: #ff8c00;
+        font-size: 1.1em;
         font-weight: bold;
-        font-size: 12px;
-        text-transform: uppercase;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+        text-align: left;
+        margin-bottom: 2px;
     }
-    
-    .transaction-table td:last-child {
-        border-bottom: 0;
+    .card-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 16px;
+        font-size: 0.97em;
     }
-    
-    .empty-row {
-        display: table-row;
+    .card-detail-label {
+        font-size: 0.93em;
     }
-    
-    .empty-row td {
-        display: table-cell;
-        text-align: center;
-        padding: 40px 20px;
+    .card-footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 10px;
+        width: 100%;
+    }
+    .card-actions {
+        width: 100%;
     }
 }

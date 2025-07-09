@@ -1,0 +1,81 @@
+extends layout
+
+block content
+  .container
+    // Navigation Sidebar
+    .sidebar
+      .logo
+        i.fas.fa-coins
+        span EquiTrust
+      
+      nav.nav-menu
+        .nav-item(onclick="navigateTo('/dashboard')")
+          i.fas.fa-tachometer-alt
+          span Dashboard
+        
+        .nav-item.active
+          i.fas.fa-chart-line
+          span Investment
+        
+        .nav-item(onclick="navigateTo('/deposit')")
+          i.fas.fa-money-bill-wave
+          span Deposit
+        
+        .nav-item(onclick="navigateTo('/withdraw')")
+          i.fas.fa-hand-holding-usd
+          span Withdraw
+        
+        .nav-item(onclick="navigateTo('/transaction-log')")
+          i.fas.fa-receipt
+          span Transaction log
+        
+        .nav-item(onclick="handleLogout()")
+          i.fas.fa-sign-out-alt
+          span Logout
+    
+    // Main Content
+    .main-content
+      // Top Header
+      .top-header
+        .header-left
+          span English
+        .header-right
+          .user-info
+            i.fas.fa-user-circle
+            span#userName Loading...
+            span#userEmail(style="margin-left: 8px; font-size: 0.95em; color: #ff8c00;")
+      
+      // Investment Content
+      .investment-content
+        .investment-header
+          h1 Investment Portfolio
+          p Manage your investment strategies and track performance
+        
+        // Investment Status Card
+        .investment-status-card
+          .status-content
+            .status-icon
+              i.fas.fa-chart-line
+            .status-info
+              h2 Investment Process
+              p.status-message Investments process will appear here
+            .status-details
+              .status-item
+                i.fas.fa-clock
+                span System is preparing investment opportunities
+              .status-item
+                i.fas.fa-shield-alt
+                span All investments are secured and verified
+              .status-item
+                i.fas.fa-trending-up
+                span Performance tracking coming soon
+
+block append head
+  link(rel='stylesheet', href='/stylesheets/investment.css')
+  link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet")
+
+block append scripts
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js')
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js')
+  script(src='https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js')
+  script(src='/javascripts/investment.js')

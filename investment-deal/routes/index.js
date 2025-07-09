@@ -55,4 +55,11 @@ router.get('/transaction-log', function(req, res, next) {
   res.render('transaction', { title: 'Transaction | EquiTrust' });
 });
 
+router.get('/withdraw', function(req, res, next) {
+  res.render('withdraw', { title: 'Withdraw | EquiTrust' });
+});
+router.get('/investment', function(req, res, next) {
+  res.render('investment', { title: 'Investment | EquiTrust' });
+});
+
 module.exports = router;
