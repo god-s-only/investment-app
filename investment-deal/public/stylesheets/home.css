@@ -1630,3 +1630,68 @@ ul.nav-links li a {
   100% { transform: rotate(360deg); }
 }
 
+.why-section, .how-section, .testimonials-section {
+  margin: 0 auto;
+  max-width: 1400px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1200px) {
+  .why-section, .how-section, .testimonials-section {
+    max-width: 1000px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-section, .how-section, .testimonials-section {
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0 auto;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-section, .how-section, .testimonials-section {
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0 auto;
+    max-width: 350px;
+  }
+}
+
+.plans {
+  /* ...existing styles... */
+  gap: 2rem !important; /* Ensure equal vertical and horizontal gap */
+}
+
+/* For column layout (mobile), ensure equal margin below each plan except the last */
+@media (max-width: 1100px) {
+  .plans {
+    gap: 2rem !important;
+  }
+  .plan {
+    margin-bottom: 0 !important;
+  }
+}
+@media (max-width: 768px) {
+  .plans {
+    gap: 2rem !important;
+  }
+  .plan {
+    margin-bottom: 0 !important;
+  }
+}
+@media (max-width: 480px) {
+  .plans {
+    gap: 1.5rem !important;
+  }
+  .plan {
+    margin-bottom: 0 !important;
+  }
+}
+

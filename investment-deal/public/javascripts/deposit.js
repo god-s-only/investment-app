@@ -20,11 +20,9 @@ const firebaseConfig = {
       console.log('Firebase initialized successfully');
     } else {
       console.error('Firebase not loaded');
-      alert('Firebase failed to load. Please refresh the page.');
     }
   } catch (error) {
     console.error('Firebase initialization error:', error);
-    alert('Firebase initialization failed. Please check your configuration.');
   }
   
   // DOM Elements
