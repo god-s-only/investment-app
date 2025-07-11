@@ -803,7 +803,6 @@ ul.nav-links li a:hover {
   }
   
   .plans-section {
-      padding: 2rem 0 1.5rem;
       margin: 0 auto;
       max-width: 350px;
   }
@@ -1692,6 +1691,304 @@ ul.nav-links li a {
   }
   .plan {
     margin-bottom: 0 !important;
+  }
+}
+
+
+/* Mobile Layout Fixes - Replace existing mobile styles with these */
+
+/* Base section styling - ensure consistent padding across all sections */
+.plans-section,
+.why-section,
+.how-section,
+.testimonials-section {
+  padding: 4rem 1rem 3rem;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1400px;
+  box-sizing: border-box;
+}
+
+/* Container styling for consistent content width */
+.plans,
+.why-cards,
+.how-steps,
+.testimonials {
+  display: grid;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Desktop grid layouts */
+.plans {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.why-cards,
+.how-steps,
+.testimonials {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* Large desktop styles */
+@media (min-width: 1201px) {
+  .plans-section,
+  .why-section,
+  .how-section,
+  .testimonials-section {
+    padding: 5rem 2rem 4rem;
+  }
+}
+
+/* Medium desktop styles */
+@media (max-width: 1200px) {
+  .plans-section,
+  .why-section,
+  .how-section,
+  .testimonials-section {
+    padding: 4rem 1.5rem 3rem;
+    max-width: 1000px;
+  }
+  
+  .plans {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  
+  .why-cards,
+  .how-steps,
+  .testimonials {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+}
+
+/* Small desktop/tablet styles */
+@media (max-width: 900px) {
+  .plans-section,
+  .why-section,
+  .how-section,
+  .testimonials-section {
+    padding: 3rem 1rem 2rem;
+    max-width: 800px;
+  }
+  
+  .plans,
+  .why-cards,
+  .how-steps,
+  .testimonials {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+/* Tablet styles */
+@media (max-width: 768px) {
+  .plans-section,
+  .why-section,
+  .how-section,
+  .testimonials-section {
+    padding: 3rem 1rem 2rem;
+    max-width: 100%;
+    margin: 0;
+  }
+  
+  .plans,
+  .why-cards,
+  .how-steps,
+  .testimonials {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .plan,
+  .why-card,
+  .how-step,
+  .testimonial {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 480px) {
+  .plans-section,
+  .why-section,
+  .how-section,
+  .testimonials-section {
+    padding: 2rem 0.5rem 1.5rem;
+    margin: 0;
+    max-width: 100%;
+  }
+  
+  .plans,
+  .why-cards,
+  .how-steps,
+  .testimonials {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 100%;
+    margin: 0;
+    padding: 0 0.5rem;
+  }
+  
+  .plan,
+  .why-card,
+  .how-step,
+  .testimonial {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 1.5rem 1rem;
+    box-sizing: border-box;
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 360px) {
+  .plans-section,
+  .why-section,
+  .how-section,
+  .testimonials-section {
+    padding: 2rem 0.25rem 1.5rem;
+  }
+  
+  .plans,
+  .why-cards,
+  .how-steps,
+  .testimonials {
+    padding: 0 0.25rem;
+  }
+  
+  .plan,
+  .why-card,
+  .how-step,
+  .testimonial {
+    padding: 1.2rem 0.8rem;
+  }
+}
+
+/* Remove the old problematic styles - Add these overrides */
+.why-section,
+.how-section,
+.testimonials-section {
+  margin: 0 auto !important;
+  max-width: 1400px !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 1200px) {
+  .why-section,
+  .how-section,
+  .testimonials-section {
+    max-width: 1000px !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-section,
+  .how-section,
+  .testimonials-section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-section,
+  .how-section,
+  .testimonials-section {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Fix the old responsive styles that were causing issues */
+@media (max-width: 700px) {
+  .plans-section,
+  .why-section,
+  .how-section,
+  .testimonials-section,
+  .newsletter-section,
+  .footer-section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .plans,
+  .why-cards,
+  .how-steps,
+  .testimonials {
+    gap: 1.5rem !important;
+  }
+  
+  .plan,
+  .why-card,
+  .how-step,
+  .testimonial {
+    min-width: unset !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* Ensure consistent spacing for mobile investment plans */
+@media (max-width: 768px) {
+  .plans-section {
+    padding: 3rem 1rem 2rem !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+  
+  .plans {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+  
+  .plan {
+    padding: 1.5rem 1rem !important;
+    margin: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .plans-section {
+    padding: 2rem 0.5rem 1.5rem !important;
+  }
+  
+  .plans {
+    gap: 1rem !important;
+    padding: 0 !important;
+  }
+  
+  .plan {
+    padding: 1.2rem 0.8rem !important;
   }
 }
 

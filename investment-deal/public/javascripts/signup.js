@@ -28,16 +28,24 @@ function hideLoading() {
   if (overlay) overlay.classList.add('hidden');
 }
 
-function showErrorModal(message) {
+function showErrorModal(message, onClose, okText) {
   // Remove 'Firebase:' prefix and any error code in parentheses at the end (e.g., (auth/email-already-in-use))
   let cleanMsg = message.replace(/^Firebase:\s*/i, '').replace(/\([^)]*\)\.?\s*$/, '').trim();
   const modal = document.getElementById('error-modal');
   const msgSpan = document.getElementById('error-modal-message');
-  if (msgSpan) msgSpan.textContent = cleanMsg;
-  if (modal) modal.classList.remove('hidden');
-  // Optionally, focus the close button for accessibility
   const closeBtn = document.getElementById('close-error-modal');
-  if (closeBtn) closeBtn.focus();
+  if (msgSpan) msgSpan.textContent = cleanMsg;
+  if (closeBtn) {
+    closeBtn.textContent = okText || 'Close';
+    closeBtn.onclick = function() {
+      modal.classList.add('hidden');
+      if (onClose) onClose();
+      // Restore button text for next time
+      closeBtn.textContent = 'Close';
+    };
+    closeBtn.focus();
+  }
+  if (modal) modal.classList.remove('hidden');
 }
 function hideErrorModal() {
   const modal = document.getElementById('error-modal');
@@ -52,6 +60,21 @@ window.addEventListener('DOMContentLoaded', function() {
     if (e.key === 'Escape') hideErrorModal();
   });
 });
+
+function showSuccessModal(message, callback) {
+  const modal = document.getElementById('success-modal');
+  const msgSpan = document.getElementById('success-modal-message');
+  if (msgSpan) msgSpan.textContent = message;
+  if (modal) modal.classList.remove('hidden');
+  const closeBtn = document.getElementById('close-success-modal');
+  if (closeBtn) {
+    closeBtn.onclick = function() {
+      modal.classList.add('hidden');
+      if (callback) callback();
+    };
+    closeBtn.focus();
+  }
+}
 
 document.addEventListener('DOMContentLoaded', function() {
   const signupForm = document.getElementById('signup-form');
@@ -97,8 +120,9 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       await userCred.user.sendEmailVerification();
       hideLoading();
-      showErrorModal('Registration successful! Please check your email for verification.');
-      window.location.href = '/signin';
+      showErrorModal('Sign up successful, please check your email for verification or spam folder.', function() {
+        window.location.href = '/signin';
+      }, 'Okay');
     } catch (err) {
       hideLoading();
       showErrorModal(err.message);

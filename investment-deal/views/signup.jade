@@ -40,6 +40,12 @@ block content
       span#error-modal-message
       button#close-error-modal(type='button') Close
 
+  // Success modal overlay
+  #success-modal.hidden
+    .error-modal-content
+      span#success-modal-message
+      button#close-success-modal(type='button') Okay
+
 block append head
   link(rel='stylesheet', href='/stylesheets/signup.css')
 

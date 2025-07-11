@@ -239,6 +239,15 @@ function createActionButtons(transaction) {
   return buttons;
 }
 
+function showLoading() {
+  const overlay = document.getElementById('loading-overlay');
+  if (overlay) overlay.classList.remove('hidden');
+}
+function hideLoading() {
+  const overlay = document.getElementById('loading-overlay');
+  if (overlay) overlay.classList.add('hidden');
+}
+
 // Load user transactions from Firestore
 async function loadUserTransactions() {
   try {
@@ -247,6 +256,7 @@ async function loadUserTransactions() {
           return;
       }
 
+      showLoading();
       // Show loading state
       showLoadingState();
 
@@ -305,10 +315,19 @@ async function loadUserTransactions() {
 
       // Apply initial filters
       applyFilters();
+      hideLoading();
 
   } catch (error) {
       console.error('Error loading transactions:', error);
-      showErrorState();
+      // Only show error state if it's a real error (not just empty)
+      if (error && error.code !== 'not-found' && error.code !== 'permission-denied') {
+        showErrorState();
+      } else {
+        // If it's just no data, show nothing (or empty state via applyFilters)
+        allTransactions = [];
+        applyFilters();
+      }
+      hideLoading();
   }
 }
 
@@ -381,10 +400,7 @@ function showEmptyState() {
                   <i class="fas fa-inbox"></i>
                   <h3>No Transactions Found</h3>
                   <p>You haven't made any transactions yet. Start by making a deposit or investment.</p>
-                  <button class="cta-btn" onclick="navigateTo('/deposit')">
-                      <i class="fas fa-money-bill-wave"></i>
-                      Make a Deposit
-                  </button>
+                 
               </div>
           </td>
       </tr>

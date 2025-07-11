@@ -39,11 +39,11 @@ window.addEventListener('DOMContentLoaded', function() {
   });
 
   const signinForm = document.getElementById('signin-form');
-  const emailError = document.getElementById('email-error-message');
+  // const emailError = document.getElementById('email-error-message');
   if (!signinForm) return;
   signinForm.onsubmit = async function(e) {
     e.preventDefault();
-    if (emailError) emailError.textContent = '';
+    // if (emailError) emailError.textContent = '';
     showLoading();
     const form = e.target;
     const email = form.email.value.trim();
@@ -59,15 +59,40 @@ window.addEventListener('DOMContentLoaded', function() {
       if (!userCred.user.emailVerified) {
         await userCred.user.sendEmailVerification();
         hideLoading();
-        showErrorModal('Your email is not verified. We have sent you another verification email. Please check your inbox.');
-        if (emailError) emailError.textContent = 'Your email is not verified.';
+        const msg = 'Your email is not verified. We have sent you another verification email. Please check your inbox or spam folder.';
+        showErrorModal(msg);
         return;
       }
       hideLoading();
       window.location.href = '/dashboard';
     } catch (err) {
       hideLoading();
-      showErrorModal(err.message);
+      let msg = 'An error occurred. Please try again.';
+      if (err && err.code) {
+        switch (err.code) {
+          case 'auth/user-not-found':
+            msg = 'No account found with this email. Please sign up first.';
+            break;
+          case 'auth/wrong-password':
+            msg = 'Incorrect password. Please try again.';
+            break;
+          case 'auth/invalid-email':
+            msg = 'Please enter a valid email address.';
+            break;
+          case 'auth/too-many-requests':
+            msg = 'Too many failed attempts. Please try again later or reset your password.';
+            break;
+          case 'auth/user-disabled':
+            msg = 'This account has been disabled. Please contact support.';
+            break;
+          case 'auth/invalid-login-credentials':
+            msg = 'Invalid email or password. Please try again.';
+            break;
+          default:
+            msg = 'An error occurred. Please try again.';
+        }
+      }
+      showErrorModal(msg);
     }
   };
 }); 
