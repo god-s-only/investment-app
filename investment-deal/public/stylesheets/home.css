@@ -31,9 +31,40 @@ body {
   right: 0;
   width: 100%;
   height: 100%;
-  background: url('https://www.minegainx.com/asset/theme1/images/banner/63148233390f51662288435.jpg') right center/cover no-repeat;
+  background: url('https://www.goldentltd.com/asset/theme4/images/banner/6468754fb18591684567375.jpg') right center/cover no-repeat;
   z-index: 1;
 }
+
+.hero-logo-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  opacity: 0.7;
+}
+
+.hero-logo-bg i.fas.fa-coins {
+  font-size: 8rem;
+  color: rgba(255, 153, 0, 0.3);
+  margin-bottom: 1rem;
+  animation: float 6s ease-in-out infinite;
+}
+
+.hero-logo-bg span {
+  font-size: 3rem;
+  font-weight: 700;
+  color: rgba(255, 153, 0, 0.4);
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 .hero-section::before {
   content: '';
   position: absolute;
@@ -196,23 +227,235 @@ ul.nav-links li a:hover {
   }
 }
 
+/* Professional GitHub-style Crypto Ticker */
 .ticker-bar {
-  background: #181f36;
-  color: #fff;
-  padding: 0.5rem 6vw;
+  background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+  color: #e6edf3;
+  padding: 1rem 0;
+  margin-top: 2vw;
+  overflow: hidden;
+  position: relative;
+  border-top: 1px solid #30363d;
+  border-bottom: 1px solid #30363d;
+  backdrop-filter: blur(10px);
+}
+
+.crypto-ticker {
   display: flex;
   gap: 2rem;
-  font-size: 1rem;
-  margin-top: 2vw;
-  overflow-x: auto;
   white-space: nowrap;
+  will-change: transform;
+  animation: scroll-infinite 80s linear infinite;
 }
-.ticker {
-  color: #fff;
-  margin-right: 2rem;
+
+/* Smooth infinite scroll animation */
+@keyframes scroll-infinite {
+  0% { 
+    transform: translateX(0); 
+  }
+  100% { 
+    transform: translateX(-50%); 
+  }
 }
-.ticker span {
-  color: #ff9900;
+
+.crypto-coin {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(33, 38, 45, 0.6);
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 200px;
+  position: relative;
+  flex-shrink: 0;
+  backdrop-filter: blur(8px);
+}
+
+.crypto-coin:hover {
+  background: rgba(33, 38, 45, 0.8);
+  border-color: #58a6ff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(88, 166, 255, 0.15);
+}
+
+.coin-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #30363d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.coin-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.coin-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 60px;
+}
+
+.coin-symbol {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #e6edf3;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.coin-name {
+  font-size: 0.75rem;
+  color: #7d8590;
+  font-weight: 400;
+  opacity: 0.9;
+  line-height: 1;
+}
+
+.coin-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+  text-align: right;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #e6edf3;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  line-height: 1;
+}
+
+.change {
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  line-height: 1;
+}
+
+.change.positive {
+  color: #3fb950;
+  background: rgba(63, 185, 80, 0.1);
+}
+
+.change.negative {
+  color: #f85149;
+  background: rgba(248, 81, 73, 0.1);
+}
+
+.change-icon {
+  font-size: 0.65rem;
+}
+
+.crypto-coin.loading {
+  justify-content: center;
+  min-width: 250px;
+  background: rgba(33, 38, 45, 0.4);
+  border-color: #30363d;
+  color: #7d8590;
+}
+
+.crypto-coin.error {
+  background: rgba(248, 81, 73, 0.1);
+  border-color: #f85149;
+}
+
+.crypto-coin.error .coin-symbol {
+  color: #f85149;
+}
+
+.crypto-coin.error .price {
+  color: #f85149;
+}
+
+/* Pause animation on hover */
+.ticker-bar:hover .crypto-ticker {
+  animation-play-state: paused;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .ticker-bar {
+    padding: 0.75rem 0;
+  }
+  
+  .crypto-ticker {
+    gap: 1.5rem;
+  }
+  
+  .crypto-coin {
+    min-width: 160px;
+    padding: 0.5rem 1rem;
+    gap: 0.5rem;
+  }
+  
+  .coin-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .coin-symbol {
+    font-size: 0.8rem;
+  }
+  
+  .coin-name {
+    font-size: 0.65rem;
+  }
+  
+  .price {
+    font-size: 0.8rem;
+  }
+  
+  .change {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.3rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .crypto-ticker {
+    animation-duration: 200s;
+  }
+}
+
+/* Loading state improvements */
+.crypto-coin.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(88, 166, 255, 0.1) 50%, 
+    transparent 100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 .about-section {
@@ -1990,5 +2233,108 @@ ul.nav-links li a {
   .plan {
     padding: 1.2rem 0.8rem !important;
   }
+}
+
+/* Modern Animated Visual for About Section (from about.css) */
+.about-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 300px;
+}
+.crypto-visual {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.crypto-visual::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: conic-gradient(from 0deg, #ff9900, #ffb300, #ff9900);
+  border-radius: 50%;
+  animation: rotate 20s linear infinite;
+  opacity: 0.1;
+}
+.crypto-visual::after {
+  content: '';
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  background: conic-gradient(from 180deg, #fff, #bfc6e0, #fff);
+  border-radius: 50%;
+  animation: rotate 15s linear infinite reverse;
+  opacity: 0.05;
+}
+.crypto-icon {
+  position: relative;
+  z-index: 3;
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, #ff9900, #ffb300);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 20px 40px rgba(255, 153, 0, 0.3);
+  animation: float 6s ease-in-out infinite;
+}
+.crypto-icon svg {
+  width: 60px;
+  height: 60px;
+  color: #fff;
+}
+.floating-elements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.floating-element {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 153, 0, 0.2);
+  border-radius: 50%;
+  animation: float-random 8s ease-in-out infinite;
+}
+.floating-element:nth-child(1) {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+.floating-element:nth-child(2) {
+  top: 60%;
+  right: 15%;
+  animation-delay: 2s;
+}
+.floating-element:nth-child(3) {
+  bottom: 30%;
+  left: 20%;
+  animation-delay: 4s;
+}
+.floating-element:nth-child(4) {
+  top: 40%;
+  right: 30%;
+  animation-delay: 6s;
+}
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+@keyframes float-random {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+  25% { transform: translate(10px, -10px) scale(1.1); opacity: 0.5; }
+  50% { transform: translate(-5px, -20px) scale(0.9); opacity: 0.7; }
+  75% { transform: translate(-10px, 10px) scale(1.05); opacity: 0.4; }
 }
 

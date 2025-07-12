@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Crypto ticker logic using CoinGecko
+  // Enhanced Crypto ticker logic with fixed animation
   const ticker = document.getElementById('crypto-ticker');
   const coins = [
     { id: 'bitcoin', symbol: 'BTC' },
@@ -21,80 +21,148 @@ document.addEventListener('DOMContentLoaded', function() {
     { id: 'solana', symbol: 'SOL' },
     { id: 'ripple', symbol: 'XRP' },
     { id: 'cardano', symbol: 'ADA' },
-    { id: 'dogecoin', symbol: 'DOGE' }
+    { id: 'dogecoin', symbol: 'DOGE' },
+    { id: 'chainlink', symbol: 'LINK' },
+    { id: 'polygon', symbol: 'MATIC' },
+    { id: 'avalanche-2', symbol: 'AVAX' },
+    { id: 'litecoin', symbol: 'LTC' }
   ];
   
-  let animationId;
-  let isScrolling = false;
-  let scrollTimeout;
+  let tickerContent = '';
+  let animationPaused = false;
+
+  function formatPrice(price) {
+    if (price >= 1000) {
+      return price.toLocaleString('en-US', { 
+        minimumFractionDigits: 0, 
+        maximumFractionDigits: 2 
+      });
+    } else if (price >= 1) {
+      return price.toFixed(2);
+    } else {
+      return price.toFixed(6);
+    }
+  }
+
+  function formatChange(change) {
+    const sign = change >= 0 ? '+' : '';
+    return `${sign}${change.toFixed(2)}%`;
+  }
 
   function fetchCrypto() {
-    fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' + coins.map(c=>c.id).join(','))
-      .then(res => res.json())
+    if (!ticker) return;
+    
+    // Show loading state
+    ticker.innerHTML = '<div class="crypto-coin loading">Loading crypto data...</div>';
+    
+    const apiUrl = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' + 
+                   coins.map(c => c.id).join(',') + 
+                   '&order=market_cap_desc&per_page=12&page=1&sparkline=false&price_change_percentage=24h';
+    
+    fetch(apiUrl)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then(data => {
+        if (!data || data.length === 0) {
+          throw new Error('No data received');
+        }
+        
         let coinHTML = '';
         data.forEach(coin => {
-          coinHTML += `<div class="crypto-coin"><img src="${coin.image}" alt="${coin.symbol}"/><span>${coin.name}</span> <span class="crypto-price">$${coin.current_price.toLocaleString()}</span> <span class="crypto-change" style="color:${coin.price_change_percentage_24h>=0?'#0f0':'#f00'}">${coin.price_change_percentage_24h>=0?'+':''}${coin.price_change_percentage_24h.toFixed(2)}%</span></div>`;
+          const changeClass = coin.price_change_percentage_24h >= 0 ? 'positive' : 'negative';
+          const changeIcon = coin.price_change_percentage_24h >= 0 ? '▲' : '▼';
+          
+          coinHTML += `
+            <div class="crypto-coin">
+              <div class="coin-icon">
+                <img src="${coin.image}" alt="${coin.symbol}" onerror="this.style.display='none'"/>
+              </div>
+              <div class="coin-info">
+                <span class="coin-symbol">${coin.symbol}</span>
+                <span class="coin-name">${coin.name}</span>
+              </div>
+              <div class="coin-price">
+                <span class="price">$${formatPrice(coin.current_price)}</span>
+                <span class="change ${changeClass}">
+                  <span class="change-icon">${changeIcon}</span>
+                  ${formatChange(coin.price_change_percentage_24h)}
+                </span>
+              </div>
+            </div>
+          `;
         });
-        ticker.innerHTML = coinHTML + coinHTML; // duplicate for infinite scroll
         
-        // Reset and restart animation
-        ticker.scrollLeft = 0;
-        startScrollAnimation();
+        // Clear any existing content and animation to prevent overlap
+        ticker.style.animation = 'none';
+        ticker.offsetHeight; // Trigger reflow to ensure animation stops
         
-        // Hide loading overlay AFTER auth check
+        // Create seamless loop content
+        tickerContent = coinHTML;
+        ticker.innerHTML = tickerContent + tickerContent; // Exactly 2 copies for 50% animation
+        
+        // Restart animation
+        ticker.style.animation = 'scroll-infinite 80s linear infinite';
+        
         hideLoadingOverlay();
       })
       .catch(error => {
         console.error('Error fetching crypto data:', error);
+        ticker.innerHTML = `
+          <div class="crypto-coin error">
+            <div class="coin-info">
+              <span class="coin-symbol">API</span>
+              <span class="coin-name">Error loading data</span>
+            </div>
+            <div class="coin-price">
+              <span class="price">Retrying...</span>
+            </div>
+          </div>
+        `;
         hideLoadingOverlay();
+        
+        // Retry after 5 seconds
+        setTimeout(fetchCrypto, 5000);
       });
   }
 
   function hideLoadingOverlay() {
     var overlay = document.getElementById('loading-overlay');
     if (overlay) {
-      // Add a small delay to ensure auth check is complete
       setTimeout(() => {
         overlay.classList.add('hidden');
       }, 500);
     }
   }
 
-  // Detect when user is scrolling the page
-  window.addEventListener('scroll', function() {
-    isScrolling = true;
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(function() {
-      isScrolling = false;
-    }, 150);
-  });
-
-  // Use requestAnimationFrame for smoother animation
-  function scrollTicker() {
-    if (ticker.scrollWidth > ticker.clientWidth && !isScrolling) {
-      const currentScroll = ticker.scrollLeft;
-      const maxScroll = ticker.scrollWidth / 2;
-      
-      if (currentScroll >= maxScroll) {
-        ticker.scrollLeft = 0;
+  // Pause animation when page is not visible (performance optimization)
+  document.addEventListener('visibilitychange', function() {
+    if (ticker) {
+      if (document.hidden) {
+        ticker.style.animationPlayState = 'paused';
       } else {
-        ticker.scrollLeft = currentScroll + 1;
+        ticker.style.animationPlayState = 'running';
       }
     }
-    animationId = requestAnimationFrame(scrollTicker);
-  }
+  });
 
-  function startScrollAnimation() {
-    if (animationId) {
-      cancelAnimationFrame(animationId);
+  // Add hover pause functionality
+  if (ticker) {
+    const tickerBar = ticker.closest('.ticker-bar');
+    if (tickerBar) {
+      tickerBar.addEventListener('mouseenter', () => {
+        ticker.style.animationPlayState = 'paused';
+      });
+      
+      tickerBar.addEventListener('mouseleave', () => {
+        if (!document.hidden) {
+          ticker.style.animationPlayState = 'running';
+        }
+      });
     }
-    scrollTicker();
-  }
-
-  // Alternative approach using CSS animation (more reliable)
-  function enableCSSAnimation() {
-    ticker.style.animation = 'scroll-left 30s linear infinite';
   }
 
   // Initialize Firebase and Auth Check
@@ -117,26 +185,24 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const auth = firebase.auth();
         
-        // Set initial state while checking auth
-        updateNavButtons(null, true); // null user, loading state
+        updateNavButtons(null, true);
         
         auth.onAuthStateChanged(function(user) {
           console.log('Auth state changed:', user ? 'User logged in' : 'User not logged in');
-          updateNavButtons(user, false); // user state, not loading
+          updateNavButtons(user, false);
         });
         
       } catch (error) {
         console.error('Firebase initialization error:', error);
-        updateNavButtons(null, false); // Default to signed out state
+        updateNavButtons(null, false);
       }
     } else {
       console.warn('Firebase not loaded');
-      updateNavButtons(null, false); // Default to signed out state
+      updateNavButtons(null, false);
     }
   }
   
   function updateNavButtons(user, isLoading) {
-    // Desktop nav buttons
     document.querySelectorAll('.nav-actions a.button').forEach(btn => {
       if (isLoading) {
         btn.textContent = 'Loading...';
@@ -150,7 +216,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
     
-    // Mobile nav buttons
     document.querySelectorAll('.mobile-nav ul li a.button').forEach(btn => {
       if (isLoading) {
         btn.textContent = 'Loading...';
@@ -165,66 +230,60 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Initialize everything
+  // Initialize crypto ticker
   fetchCrypto();
-  setInterval(fetchCrypto, 60000);
+  
+  // Refresh crypto data every 2 minutes
+  setInterval(fetchCrypto, 120000);
   
   // Initialize Firebase Auth
   initializeFirebaseAuth();
-
-  // Fallback: if requestAnimationFrame fails, use CSS animation
-  setTimeout(() => {
-    if (ticker && ticker.scrollWidth <= ticker.clientWidth) {
-      enableCSSAnimation();
-    }
-  }, 1000);
 });
 
 // Mobile Navigation Functions
 function toggleMobileNav() {
-const hamburger = document.querySelector('.hamburger');
-const mobileNav = document.getElementById('mobileNav');
+  const hamburger = document.querySelector('.hamburger');
+  const mobileNav = document.getElementById('mobileNav');
 
-hamburger.classList.toggle('active');
-mobileNav.classList.toggle('open');
+  hamburger.classList.toggle('active');
+  mobileNav.classList.toggle('open');
 
-// Prevent body scroll when menu is open
-if (mobileNav.classList.contains('open')) {
-  document.body.style.overflow = 'hidden';
-} else {
-  document.body.style.overflow = 'auto';
-}
+  if (mobileNav.classList.contains('open')) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
 }
 
 function closeMobileNav() {
-const hamburger = document.querySelector('.hamburger');
-const mobileNav = document.getElementById('mobileNav');
+  const hamburger = document.querySelector('.hamburger');
+  const mobileNav = document.getElementById('mobileNav');
 
-hamburger.classList.remove('active');
-mobileNav.classList.remove('open');
-document.body.style.overflow = 'auto';
+  hamburger.classList.remove('active');
+  mobileNav.classList.remove('open');
+  document.body.style.overflow = 'auto';
 }
 
 // Close mobile nav when clicking outside
 document.addEventListener('click', function(event) {
-const mobileNav = document.getElementById('mobileNav');
-const hamburger = document.querySelector('.hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  const hamburger = document.querySelector('.hamburger');
 
-if (mobileNav && mobileNav.classList.contains('open') && 
-    !mobileNav.contains(event.target) && 
-    !hamburger.contains(event.target)) {
-  closeMobileNav();
-}
+  if (mobileNav && mobileNav.classList.contains('open') && 
+      !mobileNav.contains(event.target) && 
+      !hamburger.contains(event.target)) {
+    closeMobileNav();
+  }
 });
 
 // Close mobile nav on window resize
 window.addEventListener('resize', function() {
-if (window.innerWidth > 768) {
-  closeMobileNav();
-}
+  if (window.innerWidth > 768) {
+    closeMobileNav();
+  }
 });
 
-// Optional: Close menu when clicking on nav links
+// Add click handlers to mobile nav links
 document.querySelectorAll('.mobile-nav ul li a').forEach(link => {
-link.addEventListener('click', closeMobileNav);
+  link.addEventListener('click', closeMobileNav);
 });

@@ -22,22 +22,26 @@ block content
             span.stat-value 155M
             span.stat-label Total Withdraw
       .hero-bg
+      .hero-logo-bg
+        i.fas.fa-coins
+        span EquiTrust
 
     .ticker-bar
       .crypto-ticker#crypto-ticker
 
   //- About Section
   .about-section
-    .about-image.animated-bitcoin
-      // SVG for two thin animated lines (circles)
-      svg(class='orbit orbit1', width='180', height='180')
-        circle(cx='90', cy='90', r='85', fill='none', stroke='#ff9900', 'stroke-width'='2', 'stroke-dasharray'='6,8')
-      svg(class='orbit orbit2', width='140', height='140')
-        circle(cx='70', cy='70', r='65', fill='none', stroke='#fff', 'stroke-width'='1', 'stroke-dasharray'='4,10')
-      // Balls
-      .orbit-ball.ball1
-      .orbit-ball.ball2
-      img(src='https://img.icons8.com/fluency/480/000000/bitcoin.png', alt='Bitcoin')
+    .about-image
+      .about-visual
+        .crypto-visual
+          .crypto-icon
+            svg(viewBox="0 0 24 24" fill="currentColor")
+              path(d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z")
+          .floating-elements
+            .floating-element
+            .floating-element
+            .floating-element
+            .floating-element
     .about-content
       h2 About us
       p EquiTrust is dedicated to transforming the landscape of cryptocurrency investment.
@@ -177,6 +181,7 @@ block content
   //- Link to home.css
   block append head
     link(rel='stylesheet', href='/stylesheets/home.css')
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet")
   //- Hamburger menu script
   block append scripts
 

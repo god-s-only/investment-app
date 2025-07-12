@@ -33,7 +33,6 @@ if (typeof firebase !== 'undefined') {
     console.error('Firebase not loaded on this page.');
 }
 
-// Make navigation functions globally available for sidebar
 window.navigateTo = function(path) {
     window.location.href = path;
 };
