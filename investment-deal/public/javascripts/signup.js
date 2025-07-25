@@ -61,20 +61,6 @@ window.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-function showSuccessModal(message, callback) {
-  const modal = document.getElementById('success-modal');
-  const msgSpan = document.getElementById('success-modal-message');
-  if (msgSpan) msgSpan.textContent = message;
-  if (modal) modal.classList.remove('hidden');
-  const closeBtn = document.getElementById('close-success-modal');
-  if (closeBtn) {
-    closeBtn.onclick = function() {
-      modal.classList.add('hidden');
-      if (callback) callback();
-    };
-    closeBtn.focus();
-  }
-}
 
 document.addEventListener('DOMContentLoaded', function() {
   const signupForm = document.getElementById('signup-form');
@@ -122,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
       hideLoading();
       showErrorModal('Sign up successful, please check your email for verification or spam folder.', function() {
         window.location.href = '/signin';
-      }, 'Okay');
+      });
     } catch (err) {
       hideLoading();
       showErrorModal(err.message);
