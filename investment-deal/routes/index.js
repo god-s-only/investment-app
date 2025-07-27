@@ -51,7 +51,7 @@ router.get('/blog', function(req, res, next) {
 router.get('/deposit', function(req, res, next) {
   res.render('deposit', { title: 'Deposit | EquiTrust' });
 });
-router.get('/transaction', function(req, res, next) {
+router.get('/transaction-log', function(req, res, next) {
   res.render('transaction', { title: 'Transaction | Capixion' });
 });
 
